@@ -1,0 +1,45 @@
+* {
+    box-sizing: border-box;
+}
+@font-face {
+    font-family: Peace; /* Имя шрифта */
+    src: url(fonts/peace_sans.woff); /* Путь к файлу со шрифтом */
+}
+.container-fluid {
+    font-family: Peace;
+}
+.navigation {
+    background-color: #628ecb !important;
+}
+.navigation a {
+    color: #fff;
+    transition-duration: .3s;
+}
+.navigation a:hover, .footer a:hover {
+    color: #EDEDED;
+}
+.reg-row {
+    height: 100% !important;
+}
+.new_text_col {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.new_text h1{
+    font-size: 400% !important;
+}
+.new_text h2{
+    font-size: 300% !important;
+}
+.btn-reg {
+    background-color: #193952;
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 10px 20px;
+}
+.prem h1 {
+    font-size: 500% !important;
+    text-align: center;
+    padding-top: 100px;
+}
