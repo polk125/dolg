@@ -15,7 +15,7 @@ if($_COOKIE['role']==4||$_COOKIE['role']==5){
 </head>
 <body>
 		<?php include("includes/sidebar.php"); ?>
-		<div class="wrapper">
+		<div class="wrapper main">
 			<?php include("includes/navbar.php"); ?>
 			<main>
 			<?php if($_COOKIE['role']==3){ ?>	
@@ -46,11 +46,15 @@ if($_COOKIE['role']==4||$_COOKIE['role']==5){
 		}else{
 			echo '<h1>Таблица по предметам</h1>';
 			include("includes/get_journ_obj.php");
-		}
 		?>
 
 
 			</main>
+			
 		</div>
+		<?php 
+			include("includes/modal.php");
+		}
+			?>
 </body>
 </html>

@@ -120,3 +120,8 @@ main{
 	display: inline-block;
 	min-width: 100px;
 }
+.h1-high{
+	text-align: center;
+	margin: 20px;
+	color: #628ecb;
+}

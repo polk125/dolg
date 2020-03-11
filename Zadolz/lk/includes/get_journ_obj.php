@@ -1,4 +1,6 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.1/jquery.min.js"></script>
 <script src="js/get_attendance.js"></script>
+
 <?php 
     function generateDates($start, $end, $weekDays) {
         $interval = DateInterval::createFromDateString('1 day');

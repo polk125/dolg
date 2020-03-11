@@ -1,41 +1,35 @@
-<h1>Задолжности</h1>
+<h1 class="h1-high">Задолжности</h1>
 <?php
-include("../db.php");
+
 if(isset($_COOKIE['role'])) {
+    
 if($_COOKIE['role']==5) {
-    $studid=$_COOKIE['user'];
+    include("../db.php");
     $result = mysqli_query($conn, "SELECT *,
-    students.fio AS s_fio,
-    pass.date AS p_date,
-    pass.id AS p_id,
-    pass.value AS p_value,
-    pass.tire AS p_tire,
-    pass.leasonid AS p_leasonid
+    students.fio AS s_fio
     FROM students
-    INNER JOIN pass ON students.id = pass.studid AND students.userid=$studid");
+    INNER JOIN pass ON students.id = pass.studid AND students.userid=$_COOKIE[user]");
     while($row=mysqli_fetch_array($result)){
-        if(mb_strtolower($row['p_value'])=='н'){
-            $text='Отсутствие на уроке';
-        }elseif($row['p_value']=='2'){
-            $text='Оценка 2';
-        }elseif($row['p_tire']==2){
-            $resultsecond = mysqli_query($conn, "SELECT name FROM lesson WHERE id='$row[p_leasonid]'");
+        if($row['tire']==2){
+            $resultsecond = mysqli_query($conn, "SELECT name FROM lesson WHERE id='$row[leasonid]'");
 			$lesson_array = mysqli_fetch_assoc($resultsecond);
 			$role = $lesson_array['name'];
-            echo '<div class="alert blue">Вы успешно перездали предмет: '.$role.' на оценку: '.$row['p_value'].'</div>';
+            echo '<div class="alert blue">Вы успешно перездали предмет: '.$role.' на оценку: '.$row['value'].'</div>';
             continue;
-        }else
-        {
+        }elseif($row['tire']==1){
+        
+    $resultsecond = mysqli_query($conn, "SELECT name FROM lesson WHERE id='$row[p_leasonid]'");
+	$lesson_array = mysqli_fetch_assoc($resultsecond);
+	$role = $lesson_array['name'];
+    echo '<div class="alert red"><h2>'.$role.'</h2>  У вас имееться задолжность по причине "'.$row["why"].'"<br> От '.$row["date"].'<br>Ссылка на тест: <a href="fix.php/?testid='.$row["testid"].'">Перейти</a></div>';
             continue;
         }
        
-        $resultsecond = mysqli_query($conn, "SELECT name FROM lesson WHERE id='$row[p_leasonid]'");
-				$lesson_array = mysqli_fetch_assoc($resultsecond);
-				$role = $lesson_array['name'];
-                echo '<div class="alert red"><h2>'.$role.'</h2>  У вас имееться задолжность по причине "'.$text.'"<br> От '.$row["date"].'</div>';
+    
     }
     
 } elseif($_COOKIE['role']==4){
+    include("../db.php");
     $result = mysqli_query($conn, "SELECT userid FROM students WHERE parenthid='$_COOKIE[user]' ");
 							while($row=mysqli_fetch_array($result))
 							{
@@ -77,90 +71,147 @@ if($_COOKIE['role']==5) {
                             }
 }
 }elseif($_COOKIE['role']==3){
-    echo'<h2>Задолжности по преподоваемому предмету</h2>';
-//     $result = mysqli_query($conn, "SELECT lessonid, classid FROM lessonteacher WHERE teacherid='$_COOKIE[user]' ");
-//     while($row=mysqli_fetch_array($result))
-//     {
-//         $resultfirst = mysqli_query($conn, "SELECT name FROM lesson WHERE id='$row[lessonid]'");
-//         $lesson_array = mysqli_fetch_assoc($resultfirst);
-//         $lesson = $lesson_array['name'];
-//         $resultsecond = mysqli_query($conn, "SELECT number, type FROM class WHERE id='$row[classid]'");
-//         $class_array = mysqli_fetch_assoc($resultsecond);
-//         $class = $class_array['number'].$class_array['type'];
-//         echo $lesson.'. Класс:  '.$class.'<br><br>';
-        
-// }
-        $teacherid=$_COOKIE['user'];
-        $result = mysqli_query($conn, "SELECT *,
-        students.fio AS s_fio,
-        pass.date AS p_date,
-        pass.id AS p_id,
-        pass.value AS p_value,
-        pass.tire AS p_tire,
-        pass.leasonid AS p_leasonid
-        FROM pass
-        INNER JOIN students ON pass.studid = students.id AND pass.teacherid=$teacherid");
-        while($rowsecond=mysqli_fetch_array($result)){
-            if(mb_strtolower($rowsecond['p_value'])=='н'){
-                $text='Отсутствие на уроке';
-            }elseif($rowsecond['p_value']=='2'){
-                $text='Оценка 2';
-            }elseif($rowsecond['p_tire']==2){
-                $resultfirst = mysqli_query($conn, "SELECT name FROM lesson WHERE id='$rowfirst[p_leasonid]'");
-                $lesson_array = mysqli_fetch_assoc($resultfirst);
-                $role = $lesson_array['name'];
-                echo '<div class="alert blue">Ваш ученик: '.$rowfirst['s_fio'].' прислал вам работу на проверку </div>'.$role;
-                continue;
-            }else
-            {
-                continue;
-            }
-            echo '<div class="alert"><div class="alert"><br>Задолжность ученика '.$rowsecond[s_fio];
-            echo '</div>';
-            echo '<div> От '.$rowsecond["p_date"].'</div>';
-            $resultfour = mysqli_query($conn, "SELECT name FROM lesson WHERE id='$rowsecond[p_leasonid]'");
-                    $lesson_array = mysqli_fetch_assoc($resultfour);
-                    $role = $lesson_array['name'];
-                    echo 'Задолжность по предмету: '.$role;
-                    echo '<br></div>'; 
-}
-$result = mysqli_query($conn, "SELECT * FROM class WHERE teacherid='$_COOKIE[user]'");
+    include('includes/db.php');
+    echo'<h2>Присланные работы</h2>';
+?>
+<table class="table">
+    <thead>
+<tr>
+    <th>ФИО</th>
+    <th>Класс</th>
+    <th>Предмет</th>
+    <th>ССылка</th>
+</tr>
+</thead>
+<?php
 
-if(null !==mysqli_fetch_array($result)){
-    $result = mysqli_query($conn, "SELECT * FROM class WHERE teacherid='$_COOKIE[user]'");
-    echo'<br><h2>Задолжности по классам</h2>';
-    while($row=mysqli_fetch_array($result)){
-        echo '<h3>Класс: '.$row[number].$row[type].'</h3>';
-        $resultsecond = mysqli_query($conn, "SELECT *,
-        students.fio AS s_fio,
-        pass.date AS p_date,
-        pass.id AS p_id,
-        pass.leasonid AS p_leasonid
-        FROM pass
-        INNER JOIN students ON pass.studid = students.id AND students.classid='$row[id]'");
-        if(null ==mysqli_fetch_array($resultsecond)){
-            echo '<br>Задолжностей нет<br><br>';
-        }else{
-        $resultsecond = mysqli_query($conn, "SELECT *,
-        students.fio AS s_fio,
-        pass.date AS p_date,
-        pass.id AS p_id,
-        pass.leasonid AS p_leasonid
-        FROM pass
-        INNER JOIN students ON pass.studid = students.id AND students.classid='$row[id]'");
-        while($rowsecond=mysqli_fetch_array($resultsecond)){
-            echo '<div class="alert"><div class="alert"><br>Задолжность ученика '.$rowsecond[s_fio];
-            echo ' </div>';
-            echo '<div> От '.$rowsecond["p_date"].'</div>';
-            $resultfour = mysqli_query($conn, "SELECT name FROM lesson WHERE id='$rowsecond[p_leasonid]'");
-                    $lesson_array = mysqli_fetch_assoc($resultfour);
-                    $role = $lesson_array['name'];
-                    echo 'Задолжность по предмету: '.$role;
-                    echo '<br><br></div>'; 
-        }
+    $passes=$conn->query("SELECT * FROM pass WHERE teacherid='$_COOKIE[user]' AND tire='1'")->fetchAll();
+    if($passes[0]>0){
+    foreach($passes as $pass):
+    $name=$conn->query("SELECT * FROM students WHERE id='$pass[studid]' ")->fetch();
+    $class=$conn->query("SELECT * FROM class WHERE id='$name[classid]' ")->fetch();
+    $object=$conn->query("SELECT name FROM lesson WHERE id='$pass[leasonid]' ")->fetch();
+
+    
+        ?>
+    <tbody>
+    <tr>
+    <td><?=$name['fio']?></td>
+    <td><?=$class['number'].$class['type']?></td>
+    <td><?=$object['name']?></td>
+    <td><?=$pass['include']?></td>
+    </tr>
+    </tbody>
+        <?php
+  
+        endforeach;
+    echo '</table>';
+    }else{
+        ?>
+
+    </table>
+    <p class="anons">Присланных работ нет</p>
+
+<?php
     }
-}
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // //     $result = mysqli_query($conn, "SELECT lessonid, classid FROM lessonteacher WHERE teacherid='$_COOKIE[user]' ");
+// //     while($row=mysqli_fetch_array($result))
+// //     {
+// //         $resultfirst = mysqli_query($conn, "SELECT name FROM lesson WHERE id='$row[lessonid]'");
+// //         $lesson_array = mysqli_fetch_assoc($resultfirst);
+// //         $lesson = $lesson_array['name'];
+// //         $resultsecond = mysqli_query($conn, "SELECT number, type FROM class WHERE id='$row[classid]'");
+// //         $class_array = mysqli_fetch_assoc($resultsecond);
+// //         $class = $class_array['number'].$class_array['type'];
+// //         echo $lesson.'. Класс:  '.$class.'<br><br>';
+        
+// // }
+//         $teacherid=$_COOKIE['user'];
+//         $result = mysqli_query($conn, "SELECT *,
+//         students.fio AS s_fio,
+//         pass.date AS p_date,
+//         pass.id AS p_id,
+//         pass.value AS p_value,
+//         pass.tire AS p_tire,
+//         pass.leasonid AS p_leasonid
+//         FROM pass
+//         INNER JOIN students ON pass.studid = students.id AND pass.teacherid=$teacherid");
+//         while($rowsecond=mysqli_fetch_array($result)){
+//             if(mb_strtolower($rowsecond['p_value'])=='н'){
+//                 $text='Отсутствие на уроке';
+//             }elseif($rowsecond['p_value']=='2'){
+//                 $text='Оценка 2';
+//             }elseif($rowsecond['p_tire']==2){
+//                 $resultfirst = mysqli_query($conn, "SELECT name FROM lesson WHERE id='$rowfirst[p_leasonid]'");
+//                 $lesson_array = mysqli_fetch_assoc($resultfirst);
+//                 $role = $lesson_array['name'];
+//                 echo '<div class="alert blue">Ваш ученик: '.$rowfirst['s_fio'].' прислал вам работу на проверку </div>'.$role;
+//                 continue;
+//             }else
+//             {
+//                 continue;
+//             }
+//             echo '<div class="alert"><div class="alert"><br>Задолжность ученика '.$rowsecond[s_fio];
+//             echo '</div>';
+//             echo '<div> От '.$rowsecond["p_date"].'</div>';
+//             $resultfour = mysqli_query($conn, "SELECT name FROM lesson WHERE id='$rowsecond[p_leasonid]'");
+//                     $lesson_array = mysqli_fetch_assoc($resultfour);
+//                     $role = $lesson_array['name'];
+//                     echo 'Задолжность по предмету: '.$role;
+//                     echo '<br></div>'; 
+// }
+// $result = mysqli_query($conn, "SELECT * FROM class WHERE teacherid='$_COOKIE[user]'");
+
+// if(null !==mysqli_fetch_array($result)){
+//     $result = mysqli_query($conn, "SELECT * FROM class WHERE teacherid='$_COOKIE[user]'");
+//     echo'<br><h2>Задолжности по классам</h2>';
+//     while($row=mysqli_fetch_array($result)){
+//         echo '<h3>Класс: '.$row[number].$row[type].'</h3>';
+//         $resultsecond = mysqli_query($conn, "SELECT *,
+//         students.fio AS s_fio,
+//         pass.date AS p_date,
+//         pass.id AS p_id,
+//         pass.leasonid AS p_leasonid
+//         FROM pass
+//         INNER JOIN students ON pass.studid = students.id AND students.classid='$row[id]'");
+//         if(null ==mysqli_fetch_array($resultsecond)){
+//             echo '<br>Задолжностей нет<br><br>';
+//         }else{
+//         $resultsecond = mysqli_query($conn, "SELECT *,
+//         students.fio AS s_fio,
+//         pass.date AS p_date,
+//         pass.id AS p_id,
+//         pass.leasonid AS p_leasonid
+//         FROM pass
+//         INNER JOIN students ON pass.studid = students.id AND students.classid='$row[id]'");
+//         while($rowsecond=mysqli_fetch_array($resultsecond)){
+//             echo '<div class="alert"><div class="alert"><br>Задолжность ученика '.$rowsecond[s_fio];
+//             echo ' </div>';
+//             echo '<div> От '.$rowsecond["p_date"].'</div>';
+//             $resultfour = mysqli_query($conn, "SELECT name FROM lesson WHERE id='$rowsecond[p_leasonid]'");
+//                     $lesson_array = mysqli_fetch_assoc($resultfour);
+//                     $role = $lesson_array['name'];
+//                     echo 'Задолжность по предмету: '.$role;
+//                     echo '<br><br></div>'; 
+//         }
+//     }
+// }
+// }
+// }
 }
 }
 ?>

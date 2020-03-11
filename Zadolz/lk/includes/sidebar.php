@@ -22,8 +22,17 @@
 				if(isset($_COOKIE['role'])&& (($_COOKIE['role']==3) || $_COOKIE['role']==4 || $_COOKIE['role']==5)) {
 			?>	
 					<li>
-						<a href="zadol.php"><i class="fas fa-layer-group">
+						<a href="zadol.php"><i class="fas fa-mail-bulk">
 							</i> Задолжности
+						</a>
+					</li>
+			<?php
+				}	
+			if(isset($_COOKIE['role'])&& (($_COOKIE['role']==3) || $_COOKIE['role']==1 || $_COOKIE['role']==2)) {
+			?>	
+					<li>
+						<a href="tests.php"><i class="fas fa-question">
+							</i> Тесты
 						</a>
 					</li>
 			<?php

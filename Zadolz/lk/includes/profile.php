@@ -1,9 +1,9 @@
 
-<div class="profile">
+
 <?php   
 if ($_COOKIE['role'] == 1) {
     
-    echo '<button id="addadmin" class="admin-add-btn admin-btn">Добавить администратора</button><br><br>';
+    echo '<div class="profile"><button id="addadmin" class="admin-add-btn admin-btn">Добавить администратора</button><br><br>';
     echo '
     <form id="addadminch" hidden class="admin-add-form" enctype="multipart/form-data" action="includes/addAdmin.php" method="POST">
     <label for="name">Имя</label>
