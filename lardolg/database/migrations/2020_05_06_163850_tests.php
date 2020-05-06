@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Pass extends Migration
+class Tests extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,13 @@ class Pass extends Migration
      */
     public function up()
     {
-        Schema::create('pass', function (Blueprint $table) {
+        Schema::create('tests', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->tinyInteger('student_id');
+            $table->text('name');
             $table->tinyInteger('teacher_id');
             $table->tinyInteger('lesson_id');
-            $table->text('value');
-            $table->text('why')->default('');
-            $table->tinyInteger('tire');
-            $table->tinyInteger('test_id');
-            $table->date('date');
+            $table->text('include')->default();
+            $table->text('theme');
         });
     }
 
@@ -33,6 +30,6 @@ class Pass extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pass');
+        Schema::dropIfExists('tests');
     }
 }

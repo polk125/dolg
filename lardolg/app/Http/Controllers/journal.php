@@ -23,16 +23,7 @@ class journal extends Controller
                     ->where('teacher_id', '=', $user)
                     ->get();
         $lessons = DB::table('lessons')->get();
-        $pass = DB::table('pass')
-                    ->join('lessonteacher', function ($join) {
-                        $user=Auth::user();
-                         $user = $user->user_id();
-                        $join->on('pass.lesson_id', '=', 'lessonteacher.lesson_id')
-                        ->where('lessonteacher.teacher_id', '=', 1);
-                    })
-                    ->get()
-                    ->values()
-                    ->all();
+        $pass = DB::table('pass')->get();
         $students = DB::table('students')
                     ->join('classes', function ($join) {
                         $user=Auth::user();
@@ -61,16 +52,7 @@ class journal extends Controller
                     ->where('teacher_id', '=', $user)
                     ->get();
         $lessons = DB::table('lessons')->get();
-        $pass = DB::table('pass')
-                    ->join('lessonteacher', function ($join) {
-                        $user=Auth::user();
-                         $user = $user->user_id();
-                        $join->on('pass.lesson_id', '=', 'lessonteacher.lesson_id')
-                        ->where('lessonteacher.teacher_id', '=', 1);
-                    })
-                    ->get()
-                    ->values()
-                    ->all();
+        $pass = DB::table('pass')->get();
         $students = DB::table('students')
                     ->join('classes', function ($join) {
                         $user=Auth::user();

@@ -22,7 +22,8 @@ Route::group(['middleware' => 'isAdmin'], function () {
     Route::get('classes', 'ClassesController@index'); 
     Route::post('journal', 'journal@data');
     Route::post('classes/post', 'ClassesController@post');
-    
+    Route::post('journal_object', 'journObject@post');
+    Route::get('journal_object', 'journObject@index');
     Route::delete('classes/delete/{task}', 'ClassesController@delete');
 });
 
