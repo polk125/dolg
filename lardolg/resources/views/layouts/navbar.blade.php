@@ -20,7 +20,8 @@
 
 	<!-- Styles -->
 	<link rel="stylesheet" href="css/style.css">
-	<link href="{{ asset('css/app.css') }}" rel="stylesheet">
+	
+	
 	
 </head>
 <body>
@@ -28,30 +29,29 @@
 	<div class="sidebar-node">
 		<ul class="sidebar-list">
 			<li><a href="/home"><i class="fas fa-user"></i> Профиль</a></li>
-			<li><a href="/"><i class="fas fa-globe-europe"></i> На сайт</a></li>
 		</ul>
 	</div>
 	<div class="sidebar-node">
 		<p class="text-muted sidebar-header"></p>
 		<ul class="sidebar-list">
-			@if (Auth::user()->typeAdmin==1)		
+			@if (Auth::user()->typeAdmin!=4 && Auth::user()->typeAdmin!=3)		
 					<li>
-						<a href="jornal"><i class="fas fa-columns">
+						<a href="journal"><i class="fas fa-columns">
 							</i> Журнал
 						</a>
 					</li>
 			@endif
 				
-			@if((Auth::user()->typeAdmin == 0)||(Auth::user()->typeAdmin==1))
+			@if((Auth::user()->typeAdmin != 1))
 					<li>
-						<a href="zadol.php"><i class="fas fa-mail-bulk">
+						<a href="zadol"><i class="fas fa-mail-bulk">
 							</i> Задолжности
 						</a>
 					</li>
 			@endif
-			@if((Auth::user()->typeAdmin == 0)||(Auth::user()->typeAdmin==1))
+			@if((Auth::user()->typeAdmin != 3)&&(Auth::user()->typeAdmin!=4))
 					<li>
-						<a href="tests.php"><i class="fas fa-question">
+						<a href="tests"><i class="fas fa-question">
 							</i> Тесты
 						</a>
 					</li>

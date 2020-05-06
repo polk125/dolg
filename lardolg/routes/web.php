@@ -11,14 +11,18 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index')->name('/home');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['middleware' => 'isAdmin'], function () {
     Route::get('users', 'pagination@users');
+    Route::get('journal', 'journal@classes');
+    Route::get('classes', 'ClassesController@index'); 
+    Route::post('journal', 'journal@data');
+    Route::post('classes/post', 'ClassesController@post');
+    
+    Route::delete('classes/delete/{task}', 'ClassesController@delete');
 });
 

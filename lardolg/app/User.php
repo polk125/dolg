@@ -38,6 +38,9 @@ class User extends Authenticatable
     ];
 
     public function isAdmin(){
-        return $this->typeAdmin === 1;
+        return $this->typeAdmin != 0;
+    }
+    public function user_id(){
+        return $this->id;
     }
 }
