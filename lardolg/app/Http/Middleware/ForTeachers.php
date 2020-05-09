@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\Auth;
 
 class ForTeachers
 {
@@ -15,6 +16,9 @@ class ForTeachers
      */
     public function handle($request, Closure $next)
     {
+        if(Auth::user()->typeAdmin == 3 || Auth::user()->typeAdmin == 4){
+            return redirect('/');
+        }
         return $next($request);
     }
 }

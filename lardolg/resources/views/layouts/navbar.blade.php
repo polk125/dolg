@@ -44,7 +44,7 @@
 				
 			@if((Auth::user()->typeAdmin != 1))
 					<li>
-						<a href="zadol"><i class="fas fa-mail-bulk">
+						<a href="alerts"><i class="fas fa-mail-bulk">
 							</i> Задолжности
 						</a>
 					</li>
@@ -58,7 +58,7 @@
 			@endif
 		</ul>
 </aside>
-			<div class="wrapper">
+			<div class="wrapper main">
 				<header>
 					<nav class="navbar">
 						<div class="navbar-user">
@@ -79,6 +79,6 @@
 			</div>
 		
 	</div>
-
+@yield('modalnoe')
 </body>
 </html>

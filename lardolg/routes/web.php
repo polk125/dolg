@@ -13,17 +13,25 @@
 
 Route::get('/', 'HomeController@index')->name('/home');
 
-Auth::routes();
+Auth::routes(['reset' => false]);
 
-Route::get('/home', 'HomeController@index')->name('home');
+
 Route::group(['middleware' => 'isAdmin'], function () {
+    Route::group(['middleware' => 'ForTeachers'], function () 
+    {
+        Route::get('journal', 'journal@classes');
+        Route::post('journal', 'journal@data');
+        Route::resource('journal_object', 'journObject',['only' => ['index', 'store', 'show', 'destroy']]);
+        Route::post('ajax/post', 'AjaxController@store');
+        Route::get('tests', 'TestsController@index');
+        Route::post('tests', 'TestsController@post');
+    });
+    Route::get('/home', 'HomeController@index')->name('home');
     Route::get('users', 'pagination@users');
-    Route::get('journal', 'journal@classes');
-    Route::get('classes', 'ClassesController@index'); 
-    Route::post('journal', 'journal@data');
+    Route::get('classes', 'ClassesController@index');
     Route::post('classes/post', 'ClassesController@post');
-    Route::post('journal_object', 'journObject@post');
-    Route::get('journal_object', 'journObject@index');
     Route::delete('classes/delete/{task}', 'ClassesController@delete');
+    Route::get('alerts', 'AlertController@index');
+    Route::get('users', 'pagination@users');
 });
 

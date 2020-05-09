@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use Illuminate\Support\Facades\Auth;
 use Closure;
 
 class ForAdmins
@@ -15,6 +16,9 @@ class ForAdmins
      */
     public function handle($request, Closure $next)
     {
+        if(Auth::user()->typeAdmin != 1){
+            return redirect('/');
+        }
         return $next($request);
     }
 }

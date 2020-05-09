@@ -2,18 +2,20 @@
 
 
 @section('content')
+
 <link rel="stylesheet" href="{{ asset('css/journ.css') }}">
 @if(!isset($lessons))
 <a class="typejourn" href=journal>Таблица по классам</a>
     
 <a class="typejourn" href=journal_object>Таблица по предметам</a>
-<h1>У вас нет предметов, которовые вы ведете</h1>
+<h1 class="h1-high">У вас нет предметов, которовые вы ведете</h1>
 @else
+<h1 class="h1-high">Таблица по предметам</h1>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.1/jquery.min.js"></script>
-<script src="js/get_attendance.js"></script>
+<script src="js/testajax.js"></script>
     <a class="typejourn" href=journal>Таблица по классам</a>
     
-    <a class="typejourn" href=journal_object>Таблица по предметам</a>
+<a class="typejourn" href='journal_object'>Таблица по предметам</a>
     <form method="post" class="journ_month" id="MyForm">
         Месяц 
         {{csrf_field()}}
@@ -102,6 +104,7 @@
                         <td
                         data-user="{{$student->id}}"
                         data-date="{{$date->format("Y-m-d")}}"
+                        data-obj="{{$lesson->id}}"
                         class="editable <?php if(findValue($date->format("Y-m-d"), $student->id, $pass, $lesson->id)=='н' || findValue($date->format("Y-m-d"), $student->id, $pass, $lesson->id)=='2') echo 'red'; ?>">{{findValue($date->format("Y-m-d"), $student->id, $pass, $lesson->id)}}</td>
                     @endforeach
                 </tr>
@@ -112,7 +115,13 @@
 </div>
 
 
+
 @endforeach
+
+
+@endif
+@endsection
+@section('modalnoe')
 <link rel="stylesheet" href="css/stile.css">
 <script src="js/jquery.js"></script>
 <div class="modal">
@@ -149,5 +158,4 @@
             </div>
         </div>
     </div>
-@endif
 @endsection

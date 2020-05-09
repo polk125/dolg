@@ -12,6 +12,8 @@
     
     <a class="typejourn" href=journal_object>Таблица по предметам</a>
 @endif
+
+<h1 class="h1-high">Таблица по классам </h1>
     <form method="post" class="journ_month" id="MyForm">
         Месяц 
         {{csrf_field()}}
