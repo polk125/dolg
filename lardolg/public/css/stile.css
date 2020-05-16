@@ -58,11 +58,46 @@
     padding: 20px;
     font-size: 18px;
   }
-  
+  .modalInput{
+    width: 30px;
+    text-align: center;
+  }
   .modal__close-icon {
     position: absolute;
-    top: 15px;
-    right: 15px;
+    top: 1px;
+    right: 5px;
     cursor: pointer;
     color: white;
   }
+  .modal__window div{
+    margin-top: 10px;
+  }
+  .btn-outline-primary{
+    font-family: inherit;
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    height: 100%;
+        font-size: 1rem;
+        font-weight: 700;
+        line-height: 1;
+        color: #ff5252;
+        text-shadow: 0 1px 0 #fff;
+        opacity: .5;
+        cursor: pointer;
+  }
+  .input-group-my textarea{
+    padding: 4px;
+  }
+  .modal label{
+    float: left;
+    margin-right: 10px;
+  }
+  .btn-outline-primary:hover {
+    color: #ff5252;
+    text-decoration: none;
+    opacity: .75;
+}

@@ -1,44 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
 
-	function makeXHR(method, url, async, data, type) {
-		'use strict';
-		return new Promise((resolve, reject) => {
-			let xhr = new XMLHttpRequest();
-			xhr.open(method, url, async);
-			if (type) xhr.responseType = type;
-			xhr.addEventListener('load', () => {
-				if (xhr.status === 200) {
-					resolve(xhr.response);
-				} else {
-					reject({
-						status: xhr.status,
-						statusText: xhr.statusText
-					});
-				}
-			}, false);
-			xhr.addEventListener('error', () => {
-				reject({
-					status: xhr.status,
-					statusText: xhr.statusText
-				});
-			}, false);
-			if (data) {
-				xhr.send(data);
-			} else {
-				xhr.send(null);
-			}
-		});
-	};
-	const ADMIN = (function() {
-		return {
-			ordersFoodBtn: document.getElementsByClassName('orders-food-a')[0],
-			contentDiv: document.getElementsByClassName('main__content')[0],
-			self: {
-				el: undefined
-			}
-		}
-	})();
-
 	var cells = document.querySelectorAll('.table tbody tr .editable');
     for(var i = 0; i < cells.length; i++) {
         cells[i].addEventListener("click", addInput);
@@ -61,6 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			this.appendChild(input);
 			input.focus();
 			input.setSelectionRange(0, input.value.length)
+			
 		}
 
 		function removeInput() {
@@ -172,16 +134,11 @@ document.addEventListener("DOMContentLoaded", function() {
 		}
 
 		function modalnoe(params) {
+
+			$('.input-dolg').blur();
 			let id = params.obj;
 			let data = new FormData();
 			data.append('id', id);
-			// makeXHR('POST', 'ajax/render.php', true, data)
-			// .then(response => {
-			// 	ADMIN.contentDiv.innerHTML = response;
-			// })
-            // .catch(error => {
-            //     console.log(`Error:  ${error.statusText}`);
-            // });
 			modal.classList.add('modal_visible');
 			main.classList.add('main_blur');
 			setInputFilterModal(modalInput, filterInputValue, params);

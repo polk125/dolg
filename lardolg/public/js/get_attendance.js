@@ -55,7 +55,6 @@ document.addEventListener("DOMContentLoaded", function() {
 			input.value = temp;
 			input.addEventListener("blur", removeInput);
 			var dataset = this.dataset;
-			console.log(dataset);
 			var params = buildInputAttr(dataset, temp);
 			setInputFilter(input, filterInputValue, params);
 			

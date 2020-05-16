@@ -16,21 +16,17 @@ class journal extends Controller
     }
 
     public function classes(){
-
-        $user=Auth::user();
-        $user = $user->user_id();
         $classes = DB::table('classes')
-                    ->where('teacher_id', '=', $user)
+                    ->where('teacher_id', '=', Auth::user()->id)
                     ->get();
         $lessons = DB::table('lessons')->get();
         $pass = DB::table('pass')->get();
         $students = DB::table('students')
                     ->join('classes', function ($join) {
-                        $user=Auth::user();
-                         $user = $user->user_id();
                         $join->on('students.class_id', '=', 'classes.id')
-                        ->where('classes.teacher_id', '=', $user);
+                        ->where('classes.teacher_id', '=', Auth::user()->id);
                     })
+                    ->select('students.id','number','type','fio','class_id','user_id','parenth_id','teacher_id')
                     ->get();
         return view('journal', [
             'classes' => $classes,
@@ -39,34 +35,5 @@ class journal extends Controller
             'students' => $students
         ]);
 
-    }
-    public function leason(){
-
-        return view('journal');
-    }
-
-    public function data(Request $request){
-        $user=Auth::user();
-        $user = $user->user_id();
-        $classes = DB::table('classes')
-                    ->where('teacher_id', '=', $user)
-                    ->get();
-        $lessons = DB::table('lessons')->get();
-        $pass = DB::table('pass')->get();
-        $students = DB::table('students')
-                    ->join('classes', function ($join) {
-                        $user=Auth::user();
-                         $user = $user->user_id();
-                        $join->on('students.class_id', '=', 'classes.id')
-                        ->where('classes.teacher_id', '=', $user);
-                    })
-                    ->get();
-        return view('/journal',[
-            'month' => $request->journ_month,
-            'classes' => $classes,
-            'lessons' => $lessons,
-            'pass' => $pass,
-            'students' => $students
-        ]);
     }
 }

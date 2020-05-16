@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="css/journ.css">
 @if(Auth::user()->typeAdmin==2)	
     <a class="typejourn" href=tests>Все тесты</a>
-    <a class="typejourn" href=tests/new>Создать новый тест</a>
+    <a class="typejourn" href=make_tests>Создать новый тест</a>
 @endif
 <h1 class="h1-high">Тесты</h1>
 
@@ -40,9 +40,10 @@
         @endif
     @endforeach
     @if(substr($test->include, -3)=='png'|| substr($test->include, -3)=='jpg')
-        <a class="header-img" href="tests/'{{$test->id}}'"><img  src='docs/{{$test->include}}' ></a>;
+        <a class="header-img" href="tests/{{$test->id}}"><img  src='docs/{{$test->include}}' ></a>;
     @endif
-    <br><a class="look" href="tests/{{$test->id}}">Просмотр</a>
+
+    <br><div class="nav-test"><a class="look" href="editTest/{{$test->id}}">Редактировать</a><a class="look" href="tests/{{$test->id}}">Просмотр</a></div>
 </div>
 @endforeach
 

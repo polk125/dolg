@@ -20,6 +20,23 @@ class TestsController extends Controller
             'names' => $name
         ]);
     }
+    public function test($id){
+        $test = DB::table('tests')->where('id', '=', $id)->first();
+        $who = DB::table('users')->where('id','=',$test->teacherid)->select('name')->first();
+        $lesson = DB::table('lessons')->where('id','=',$test->lessonid)->select('name')->first();
+        $questions = DB::table('questions')->where('testid', '=', $test->id)->get();
+        foreach($questions as $question):
+            $answer[$question->id] =  DB::table('answers')->where('questionid', '=', $question->id)->get(); 
+            
+        endforeach;
+        return view('renderTests',[
+            'test' => $test,
+            'who' => $who,
+            'lesson' => $lesson,
+            'question' => $questions,
+            'answers' => $answer
+        ]);
+    }
     public function post(Request $request){
         $lessons = DB::table('lessons')->get();
         if($request->object=='all'){

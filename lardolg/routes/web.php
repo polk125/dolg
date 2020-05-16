@@ -25,9 +25,14 @@ Route::group(['middleware' => 'isAdmin'], function () {
         Route::post('ajax/post', 'AjaxController@store');
         Route::get('tests', 'TestsController@index');
         Route::post('tests', 'TestsController@post');
+        Route::get('make_tests', 'MakeTestController@index');
+        Route::post('make_tests', 'MakeTestController@post');
+        Route::post('make_tests/add', 'MakeTestController@add');
+        Route::get('tests/{test}', 'TestsController@test');
+        Route::get('editTest/{test}', 'TestsController@test');
+        Route::post('ajax/delete', 'AjaxController@delete');
     });
     Route::get('/home', 'HomeController@index')->name('home');
-    Route::get('users', 'pagination@users');
     Route::get('classes', 'ClassesController@index');
     Route::post('classes/post', 'ClassesController@post');
     Route::delete('classes/delete/{task}', 'ClassesController@delete');

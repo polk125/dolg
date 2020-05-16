@@ -19,7 +19,7 @@
 	
 
 	<!-- Styles -->
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="{{ asset('css/style.css')}}">
 	
 	
 	
@@ -57,10 +57,13 @@
 					</li>
 			@endif
 		</ul>
+		
 </aside>
 			<div class="wrapper main">
 				<header>
 					<nav class="navbar">
+						<div>
+						</div>
 						<div class="navbar-user">
 							{{ Auth::user()->name }}
 						</div>
@@ -79,6 +82,6 @@
 			</div>
 		
 	</div>
-@yield('modalnoe')
+	@yield('modal')
 </body>
 </html>
