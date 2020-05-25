@@ -23,7 +23,7 @@
         <option <?php if(isset($month)){if($month==='11'){echo"selected";}}elseif(date("m")==11){echo 'selected';}?> value="11">Ноябрь</option>
         <option <?php if(isset($month)){if($month==='12'){echo"selected";}}elseif(date("m")==12){echo 'selected';}?> value="12">Декабрь</option>
         <option <?php if(isset($month)){if($month==='1'){echo"selected";}}elseif(date("m")==1){echo 'selected';}?> value="1">Январь</option>
-        <option <?php if(isset($month)){if($month==='2'){echo"selected class=selected";}}elseif(date("m")==2){echo 'selected';}?> value="2">Февраль</option>
+        <option <?php if(isset($month)){if($month==='2'){echo"selected";}}elseif(date("m")==2){echo 'selected';}?> value="2">Февраль</option>
         <option <?php if(isset($month)){if($month==='3'){echo"selected";}}elseif(date("m")==3){echo 'selected';}?> value="3">Март</option>
         <option <?php if(isset($month)){if($month==='4'){echo"selected";}}elseif(date("m")==4){echo 'selected';}?> value="4">Апрель</option>
         <option <?php if(isset($month)){if($month==='5'){echo"selected";}}elseif(date("m")==5){echo 'selected';}?> value="5">Май</option>

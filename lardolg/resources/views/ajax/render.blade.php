@@ -1,22 +1,30 @@
-<?php
-$conn = new PDO(
-    "mysql:host=localhost;dbname=zadolz;charset=utf8",
-    "root",
-    "",
-    [
-        PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-    ]
-);
-$obects= $conn->query("SELECT * FROM tests WHERE lessonid ='$_POST[id]' ")->fetchAll();
-?>
-<select  name="pass-test" class="passtest">
-<?php foreach ($obects as $obect): 
-    $name= $conn->query("SELECT * FROM users WHERE id='$obect[teacherid]'")->fetch();
-    ?>
-    <option value="<?=$obect['id']?>">Тест: <?=$obect['name']?> Автор: <?=$name['surname'].' '.mb_substr($name['surname'], 0, 1).'.'.mb_substr($name['patronymic'], 0, 1).'.'?></option>
-<?php endforeach;?>	
 
+
+<label for="testRender">Тест</label>
+<select id="testRender" onchange="if(this.value =='href') document.location.href='make_tests';"  name="pass-test" class="passtest">
+    <option value="">
+        Тест для исправления ошибок
+    </option>
+    @if(isset($tests))
+    @foreach ($tests as $test)
+        <option value="{{$test->id}}">Тест: {{$test->name}} Автор: {{$name[$test->id]->name}}</option>
+    @endforeach
+@endif
+<option value="href">
+    ---Создать тест---
+    </option>
 </select>
-<?php
-?>
+<label for="materialRender">Учебный материал</label>
+<select id="materialRender" onchange="if(this.value =='href') document.location.href='make_tests';"  name="pass-material" class="passtest">
+    <option value="">
+        Материал для изучения
+    </option>
+    @if(isset($materials))
+    @foreach ($materials as $material)
+        <option value="{{$material->id}}">Название: {{$material->name}} Автор: {{$names[$material->id]->name}}</option>
+    @endforeach
+@endif
+<option value="href">
+    ---Добавить учебный материал---
+    </option>
+</select>

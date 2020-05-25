@@ -3,7 +3,16 @@ document.addEventListener("DOMContentLoaded", function() {
 	var cells = document.querySelectorAll('.table tbody tr .editable');
     for(var i = 0; i < cells.length; i++) {
         cells[i].addEventListener("click", addInput);
-    }
+	}
+	const ADMIN = (function() {
+		return {
+			ordersFoodBtn: document.getElementsByClassName('orders-food-a')[0],
+			contentDiv: document.getElementsByClassName('main__content')[0],
+			self: {
+				el: undefined
+			}
+		}
+	})();
 
 		function addInput() {
 			this.removeEventListener("click", addInput);
@@ -32,6 +41,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 			var params = buildInputAttr(dataset, temp);
+			params['why']='';
+			params['test']=null;
+			params['material']=null;
 			page = "ajax/post";
 			updateValue(page, params);
 
@@ -41,7 +53,6 @@ document.addEventListener("DOMContentLoaded", function() {
 		}
 
 		function updateValue(page, params) {
-
             $.ajax({
                 url:page,
                 type: "POST",
@@ -50,7 +61,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function (data) {
-                console.log(data);
                 },
                 error: function (msg) {
                 alert('msg');
@@ -122,7 +132,12 @@ document.addEventListener("DOMContentLoaded", function() {
 			var dataset = parent.dataset;
 			var value = buildInputAttrPass(dataset, temp);
 			value['why'] = document.querySelector('.form-control-bottom').value;
-
+			value['test'] = null;
+			value['material']=null;
+			if(document.querySelector('#check').checked){
+				value['test'] = document.querySelector('#testRender').value
+				value['material'] = document.querySelector('#materialRender').value
+			}
 			page = "ajax/post";
 			updateValue(page, value);
 
@@ -139,6 +154,28 @@ document.addEventListener("DOMContentLoaded", function() {
 			let id = params.obj;
 			let data = new FormData();
 			data.append('id', id);
+			// makeXHR('POST', 'ajax/render.php', true, data)
+			// .then(response => {
+			// 	ADMIN.contentDiv.innerHTML = response;
+			// })
+            // .catch(error => {
+            //     console.log(`Error:  ${error.statusText}`);
+			// });
+			$.ajax({
+                url: "ajax/renderTests",
+                type: "GET",
+                data: {params},
+                headers: {
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function (data) {
+					ADMIN.contentDiv.innerHTML = data;
+                },
+                error: function (msg) {
+                alert('msg');
+                }
+			});
+			
 			modal.classList.add('modal_visible');
 			main.classList.add('main_blur');
 			setInputFilterModal(modalInput, filterInputValue, params);

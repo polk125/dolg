@@ -29,8 +29,6 @@ class AlertController extends Controller
                                         ->first();
                 
             }
-            
-            dd($names); 
             return view('alerts',[
                 'passes' => $passes,
                 'names' => $names,

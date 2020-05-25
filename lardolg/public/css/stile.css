@@ -91,13 +91,40 @@
   }
   .input-group-my textarea{
     padding: 4px;
+    display: inline-block;
+    width: 100%;
+    margin-top: 10px;
   }
   .modal label{
-    float: left;
     margin-right: 10px;
   }
   .btn-outline-primary:hover {
     color: #ff5252;
     text-decoration: none;
     opacity: .75;
+}
+.main__content{
+  height: 100px;
+}
+.main__content select{
+	width: 50%;
+}
+label{
+  width: 45%;
+  display: inline-block;
+  margin-right: 10px;
+} 
+.input-group-my td{
+  width: 45%;
+}
+.modal__alert{
+  top: 10%;
+  left:   50%;
+  max-width: 400px;
+  width: 90%;
+  transform: translate(-50%, -50%);
+  border-radius: 3px;
+  overflow: hidden;
+  box-shadow: 0 3px 10px -.5px rgba(0, 0, 0, .2);
+  position: fixed;
 }

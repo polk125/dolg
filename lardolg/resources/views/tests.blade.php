@@ -40,7 +40,7 @@
         @endif
     @endforeach
     @if(substr($test->include, -3)=='png'|| substr($test->include, -3)=='jpg')
-        <a class="header-img" href="tests/{{$test->id}}"><img  src='docs/{{$test->include}}' ></a>;
+        <a class="header-img" href="tests/{{$test->id}}"><img  src='docs/{{$test->include}}' ></a>
     @endif
 
     <br><div class="nav-test"><a class="look" href="editTest/{{$test->id}}">Редактировать</a><a class="look" href="tests/{{$test->id}}">Просмотр</a></div>

@@ -12,7 +12,8 @@
 <tr>
     <th>Преподователь</th>
     <th>Предмет</th>
-    <th>ССылка</th>
+    <th>Тест</th>
+    <th>Уч.Мат.</th>
     <th>Дата</th>
     <th>Причина</th>
     <th>Состояние</th>
@@ -26,6 +27,9 @@
     <td>{{$lessons[$pass->id]->name}}</td>
     <td>
         {{-- {{$pass->include}} --}}
+    </td>
+    <td>
+        <a href="{{ asset('materials/'.$pass->material_id)}}">Перейти</a>
     </td>
     <td>{{$pass->date}}</td>
     <td>{{$pass->why}}</td>
@@ -47,7 +51,8 @@
     <th>Преподователь</th>
     <th>Ребенок</th>
     <th>Предмет</th>
-    <th>ССылка</th>
+    <th>Тест</th>
+    <th>Уч.Мат.</th>
     <th>Дата</th>
     <th>Причина</th>
     <th>Состояние</th>
@@ -63,6 +68,9 @@
     <td>{{$lessons[$pass->id]->name}}</td>
     <td>
         {{-- {{$pass->include}} --}}
+    </td>
+    <td>
+        <a href="{{ asset('materials/'.$pass->material_id)}}">Перейти</a>
     </td>
     <td>{{$pass->date}}</td>
     <td>{{$pass->why}}</td>
@@ -84,7 +92,8 @@
         <th>ФИО</th>
         <th>Класс</th>
         <th>Предмет</th>
-        <th>ССылка</th>
+        <th>Тест</th>
+        <th>Уч.Мат.</th>
         <th>Дата</th>
         <th>Состояние</th>
         <th></th>
@@ -101,6 +110,9 @@
         <td>{{$lessons[$pass->id]->name}}</td>
         <td>
             {{-- {{$pass->include}} --}}
+        </td>
+        <td>
+            <a href="{{ asset('materials/'.$pass->material_id)}}">Перейти</a>
         </td>
         <td>{{$pass->date}}</td>
         

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
+	
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -9,7 +10,9 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Scripts -->
+	<!-- Scripts -->
+	
+	
     <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
@@ -28,7 +31,7 @@
 <aside class="sidebar">
 	<div class="sidebar-node">
 		<ul class="sidebar-list">
-			<li><a href="/home"><i class="fas fa-user"></i> Профиль</a></li>
+			<li><a href="{{ asset('home')}}"><i class="fas fa-user"></i> Профиль</a></li>
 		</ul>
 	</div>
 	<div class="sidebar-node">
@@ -36,7 +39,7 @@
 		<ul class="sidebar-list">
 			@if (Auth::user()->typeAdmin!=4 && Auth::user()->typeAdmin!=3)		
 					<li>
-						<a href="journal"><i class="fas fa-columns">
+						<a href="{{ asset('journal')}}"><i class="fas fa-columns">
 							</i> Журнал
 						</a>
 					</li>
@@ -44,18 +47,23 @@
 				
 			@if((Auth::user()->typeAdmin != 1))
 					<li>
-						<a href="alerts"><i class="fas fa-mail-bulk">
+						<a href="{{ asset('alerts')}}"><i class="fas fa-mail-bulk">
 							</i> Задолжности
 						</a>
 					</li>
 			@endif
 			@if((Auth::user()->typeAdmin != 3)&&(Auth::user()->typeAdmin!=4))
 					<li>
-						<a href="tests"><i class="fas fa-question">
+						<a href="{{ asset('tests')}}"><i class="fas fa-question">
 							</i> Тесты
 						</a>
 					</li>
 			@endif
+					<li>
+						<a href="{{ asset('materials')}}"><i class="fas fa-book">
+							</i> Материалы
+						</a>
+					</li>
 		</ul>
 		
 </aside>

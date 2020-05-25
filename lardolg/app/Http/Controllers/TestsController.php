@@ -11,6 +11,8 @@ class TestsController extends Controller
     public function index(){
         $lessons = DB::table('lessons')->get();
         $tests = DB::table('tests')->get();
+        
+        $name=NULL;
         foreach($tests as $test){
             $name[$test->id]=DB::table('users')->where('id', '=', $test->teacherid)->select('name')->first();
         }
@@ -54,5 +56,30 @@ class TestsController extends Controller
             'names' => $name,
             'object' => $request->object
         ]);
+    }
+    public function editTest($id){
+        $test = DB::table('tests')->where('id', '=', $id)->first();
+        $who = DB::table('users')->where('id','=',$test->teacherid)->select('name')->first();
+        $lessons = DB::table('lessons')->get();
+        $questions = DB::table('questions')->where('testid', '=', $test->id)->get();
+        foreach($questions as $question):
+            $answer[$question->id] =  DB::table('answers')->where('questionid', '=', $question->id)->get(); 
+            
+        endforeach;
+        return view('editTest',[
+            'test' => $test,
+            'who' => $who,
+            'lessons' => $lessons,
+            'question' => $questions,
+            'answers' => $answer
+        ]);
+    }
+    public function loock($fileId){
+        $pathToFile=public_path('/docs/'.$fileId);
+        return response()->file($pathToFile);      
+    }
+    public function download($fileId){
+        $pathToFile=public_path('/docs/'.$fileId);
+        return response()->download($pathToFile);      
     }
 }

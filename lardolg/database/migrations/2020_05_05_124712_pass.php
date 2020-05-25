@@ -21,7 +21,8 @@ class Pass extends Migration
             $table->text('value');
             $table->text('why')->default('');
             $table->tinyInteger('tire');
-            $table->tinyInteger('test_id');
+            $table->tinyInteger('test_id')->default(NULL);
+            $table->tinyInteger('material_id')->default(NULL);
             $table->date('date');
         });
     }

@@ -10,12 +10,13 @@
 <a class="typejourn" href=journal_object>Таблица по предметам</a>
 <h1 class="h1-high">У вас нет предметов, которовые вы ведете</h1>
 @else
+<a class="typejourn" href=journal>Таблица по классам</a>
+    
+<a class="typejourn" href='journal_object'>Таблица по предметам</a>
 <h1 class="h1-high">Таблица по предметам</h1>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.1/jquery.min.js"></script>
 <script src="js/testajax.js"></script>
-    <a class="typejourn" href=journal>Таблица по классам</a>
-    
-<a class="typejourn" href='journal_object'>Таблица по предметам</a>
+
     <form method="post" class="journ_month" id="MyForm">
         Месяц 
         {{csrf_field()}}
@@ -25,7 +26,7 @@
         <option <?php if(isset($month)){if($month==='11'){echo"selected";}}elseif(date("m")==11){echo 'selected';}?> value="11">Ноябрь</option>
         <option <?php if(isset($month)){if($month==='12'){echo"selected";}}elseif(date("m")==12){echo 'selected';}?> value="12">Декабрь</option>
         <option <?php if(isset($month)){if($month==='1'){echo"selected";}}elseif(date("m")==1){echo 'selected';}?> value="1">Январь</option>
-        <option <?php if(isset($month)){if($month==='2'){echo"selected class=selected";}}elseif(date("m")==2){echo 'selected';}?> value="2">Февраль</option>
+        <option <?php if(isset($month)){if($month==='2'){echo"selected";}}elseif(date("m")==2){echo 'selected';}?> value="2">Февраль</option>
         <option <?php if(isset($month)){if($month==='3'){echo"selected";}}elseif(date("m")==3){echo 'selected';}?> value="3">Март</option>
         <option <?php if(isset($month)){if($month==='4'){echo"selected";}}elseif(date("m")==4){echo 'selected';}?> value="4">Апрель</option>
         <option <?php if(isset($month)){if($month==='5'){echo"selected";}}elseif(date("m")==5){echo 'selected';}?> value="5">Май</option>
@@ -141,7 +142,17 @@
                                 <textarea id="textarea_modal" type="text" name="modal_why" class="form-control form-control-bottom" placeholder="Можно пропустить"></textarea>
                             </div>
                         </div>
-                        
+                        <div class="form-group">
+                            <td>
+                                <label for="check">С возможностью исправить</label>
+                            </td>
+                            <td>
+                                <input id="check" type="checkbox" checked="checked" onclick="if(this.checked){document.querySelector('.hidden').style.display=''}else {document.querySelector('.hidden').style.display='none'}">
+                            </td>
+                        </div>
+                        <div class="main__content hidden">
+
+                        </div>
                         <div class="form-group">
                             <input type="button" name="modal_submit" class="btn btn-outline-primary" value="ОК">
                         </div>

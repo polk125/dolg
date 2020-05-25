@@ -2,16 +2,16 @@
 @section('content')
 <link rel="stylesheet" href="{{ asset('css/test.css')}}">
 <link rel="stylesheet" href="{{ asset('css/journ.css')}}">
-
-<a class="typejourn" href=../tests>Назад</a>
+<link rel="stylesheet" href="{{ asset('css/img.css')}}">
+<a class="typejourn" href={{ asset('tests')}}>Назад</a>
 <div class="test-render">
     <div class="example">
         <h1>Название теста: {{$test->name}}</h1>
         <p>Автор: {{$who->name}}</p>
         <p>Тема: {{$test->theme}}</p>
-        <p>предмет: {{$lesson->name}}</p>
+        <p>Предмет: {{$lesson->name}}</p>
         @if(substr($test->include, -3)=='png'|| substr($test->include, -3)=='jpg')
-            <img  src="{{ asset('docs/'.$test->include) }}">
+            <img class="minimized" src="{{ asset('docs/'.$test->include) }}">
         @endif       
     </div>
     <?php $num = 0?>
@@ -19,7 +19,8 @@
     <?php $num++?>
 
     <div class="question">
-    <h3>Вопрос №{{$num}}: {{$objs->question}}</h3>
+    <h3>Вопрос №{{$num}}</h3>
+    <p> {{$objs->question}}</p>
  
     <?php $numb = 0?>
     @foreach($answers[$objs->id] as $answer)
@@ -28,7 +29,7 @@
             <div class="answer correct">Ответ {{$numb}}: {{$answer->text}} (правильный)<br>
             @if(substr($answer->include, -3)=='png'|| substr($answer->include, -3)=='jpg')
                     
-                    <img  src="{{ asset('docs/'.$answer->include) }}" >
+                    <img class="minimized addimg" src="{{ asset('docs/'.$answer->include) }}" >
             @endif
             </div>
         @else
@@ -44,4 +45,6 @@
 
 @endforeach
 </div>
+<script src="{{ asset('js/jquery.js')}}"></script>
+<script src="{{ asset('js/img.js')}}"></script>
 @endsection

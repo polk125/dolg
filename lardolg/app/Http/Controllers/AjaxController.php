@@ -36,7 +36,6 @@ class AjaxController extends Controller
      */
     public function store(Request $request)
     {
-        
         $lessonteacher = DB::table('lessonteacher')
         ->select('teacher_id','lesson_id')
         ->where('id','=', $request->params['obj'])
@@ -50,51 +49,33 @@ class AjaxController extends Controller
                 ['date','=',$request->params['date']]
                 ])
                 ->count();
-            if($result>0){
-                if(!isset($request->params['why'])){
-                        $result = DB::table('pass')->where([
-                        ['student_id', '=', $request->params['user']], 
-                        ['teacher_id','=', $lessonteacher->teacher_id], 
-                        ['lesson_id','=',$lessonteacher->lesson_id], 
-                        ['date','=',$request->params['date']]
-                        ])
-                        ->update(['value'=>$request->params['value']]);
-                        
-                }else{             
+            if($result>0){     
                     $result = DB::table('pass')->where([
                     ['student_id', '=', $request->params['user']], 
                     ['teacher_id','=', $lessonteacher->teacher_id], 
                     ['lesson_id','=',$lessonteacher->lesson_id], 
                     ['date','=',$request->params['date']]
                     ])
-                    ->update(['value'=>$request->params['value'],'why'=>$request->params['why']]);
-                    
-                }
-            }else{
-                if(!isset($request->params['why'])){
-            $pass = DB::table('pass')->insert(
-                ['student_id' => $request->params['user'], 
-                'teacher_id' => $lessonteacher->teacher_id,
-                'lesson_id' => $lessonteacher->lesson_id,
-                'value' => $request->params['value'],
-                'date' => $request->params['date']                
-                ]
+                    ->update(['value'=>$request->params['value'],
+                    'why'=>$request->params['why'],
+                    'test_id'=>$request->params['test'],
+                    'material_id'=>$request->params['material']]);
+                    return($request->params);
                 
-              );
-              
-            }else{           
+            }else{     
                 $pass = DB::table('pass')->insert(
-                    
                     ['student_id' => $request->params['user'], 
                     'teacher_id' => $lessonteacher->teacher_id,
                     'lesson_id' => $lessonteacher->lesson_id,
                     'value' => $request->params['value'],
                     'why' => $request->params['why'],
-                    'date' => $request->params['date']                
+                    'date' => $request->params['date'],
+                    'test_id'=>$request->params['test'],
+                    'material_id'=>$request->params['material']           
                     ]
                   );
+                  return($request->params);
                   
-            }
             }
         }else{
             $result = DB::table('pass')->where([
@@ -141,11 +122,96 @@ class AjaxController extends Controller
         }
         return($request->params);
     }
-    public function show($id)
+    public function render(Request $request)
     {
-        //
+        $tests = DB::table('tests')
+                ->where('lessonid', '=', $request->params['obj'])
+                ->get();
+
+        $matreials = DB::table('materials')
+                ->where('lesson_id', '=', $request->params['obj'])
+                ->get();
+        foreach($tests as $test):
+            $name[$test->id] = DB::table('users')
+                ->where('id', '=', $test->teacherid)
+                ->first();
+        endforeach;
+        foreach($matreials as $matreial):
+            $names[$matreial->id] = DB::table('users')
+                ->where('id', '=', $test->teacherid)
+                ->first();
+        endforeach;
+        return view('ajax/render', ['tests' => $tests, 'name' =>$name, 'materials' => $matreials, 'names' =>$names]);
     }
 
+
+    public function updateimg(Request $request)
+    {
+        foreach ($request->file() as $file) {
+            
+            $file_exploded = explode(".", $file->getClientOriginalName());
+            $pref = $file_exploded[0];
+            $suf = $file_exploded[1];
+            $load =$pref.'.'.$suf;
+            $Dowload = $file;
+            $Dowload->move(public_path() . '/docs/materials', $load);
+            return view('ajax/addImg', ['load' => $load]);
+        }
+    }
+    public function updateaddimg(Request $request)
+    {
+        foreach ($request->file() as $file) {
+            
+            $file_exploded = explode(".", $file->getClientOriginalName());
+            $pref = $file_exploded[0];
+            $suf = $file_exploded[1];
+            $load =$pref.'.'.$suf;
+            $Dowload = $file;
+            $Dowload->move(public_path() . '/docs/materials', $load);
+            return view('ajax/addedImg', ['load' => $load, 'id'=> $request->id]);
+        }
+    }
+
+    public function testupdateimg(Request $request)
+    {
+        foreach ($request->file() as $file) {
+            
+            $file_exploded = explode(".", $file->getClientOriginalName());
+            $pref = $file_exploded[0];
+            $suf = $file_exploded[1];
+            $load =$pref.'.'.$suf;
+            $Dowload = $file;
+            $Dowload->move(public_path() . '/docs', $load);
+            return view('ajax/testaddImg', ['load' => $load]);
+        }
+    }
+    public function testupdateaddimg(Request $request)
+    {
+        foreach ($request->file() as $file) {
+            
+            $file_exploded = explode(".", $file->getClientOriginalName());
+            $pref = $file_exploded[0];
+            $suf = $file_exploded[1];
+            $load =$pref.'.'.$suf;
+            $Dowload = $file;
+            $Dowload->move(public_path() . '/docs', $load);
+            return view('ajax/testaddedImg', ['load' => $load, 'id'=> $request->id]);
+        }
+    }
+
+    public function testupdateanswerimg(Request $request)
+    {
+        foreach ($request->file() as $file) {
+            
+            $file_exploded = explode(".", $file->getClientOriginalName());
+            $pref = $file_exploded[0];
+            $suf = $file_exploded[1];
+            $load =$pref.'.'.$suf;
+            $Dowload = $file;
+            $Dowload->move(public_path() . '/docs', $load);
+            return view('ajax/testaddedImg', ['load' => $load, 'id'=> $request->id]);
+        }
+    }
     /**
      * Show the form for editing the specified resource.
      *
