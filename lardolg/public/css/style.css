@@ -15,6 +15,7 @@ main{
 	border-left: #ececec 1px solid;
 	background-color: #f1f1f1;
 	min-height: 800px;
+	padding-bottom: 20px;
 }
 /* Боковая панель */
 .sidebar {
@@ -42,6 +43,7 @@ main{
 	font-weight: 500;
 	padding: 8px 16px;
 	width: 250px;
+	transition: margin-left .3s ease;
 }
 
 .sidebar li i {
@@ -49,6 +51,7 @@ main{
 }
 
 .sidebar li:hover a{
+	margin-left: 10px;
 	color: #d63434;
 }
 
@@ -106,12 +109,22 @@ main{
 }
 .profile{
 	text-align: center;
-	padding: 50px;
 	margin: 100px auto 0 auto;
 	background-color: #ffffff;
-	border: 1px solid #ccc;
+	border: 1px solid rgb(167, 167, 167);
 	border-radius: 20px;
-	width: 400px;
+	width: 600px;
+}
+.profile h5{
+	margin: 10px auto;
+}
+.profile .header{
+	padding-bottom: 10px;
+	border-bottom: 1px solid rgb(167, 167, 167);
+	width: 100%;
+}
+.profile .content{
+	padding: 5px 20px;
 }
 .admin-add-form{
 	text-align: left;
@@ -124,4 +137,7 @@ main{
 	text-align: center;
 	margin: 20px;
 	color: #628ecb;
+}
+.hide-sidebar{
+	cursor: pointer;
 }

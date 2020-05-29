@@ -48,7 +48,7 @@
             <input class="input-new" type="file" name="test_load" id="question_img"><br>
             <button value="{{$test->id}}" class="admin-btn edit-img-material">Сохранить</button>
             <button value="{{$test->id}}" class="admin-btn delete-img-material">Удалить файл</button><br>
-            <p>Автор: {{$who->name}}</p>
+            <p>Автор: <a href="{{ asset('users/'.$who->id)}}">{{$who->name}}</a></p>
             
     </div>
     <?php $num = 0?>

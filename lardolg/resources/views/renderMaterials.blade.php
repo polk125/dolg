@@ -7,17 +7,17 @@
 <div class="test-render">
     <div class="example">
         <h1>Учебный материал: {{$test->name}}</h1>
-        <p>Автор: {{$who->name}}</p>
+        <p>Автор: <a href="{{ asset('users/'.$who->id)}}">{{$who->name}}</a></p>
         <p>Тема: {{$test->theme}}</p>
         <p>Предмет: {{$lesson->name}}</p>
         @if($test->include!=NULL)
-            @if(substr($test->include, -3)=='png'|| substr($test->include, -3)=='jpg')
+            @if(substr($test->include, -3)=='png'|| substr($test->include, -3)=='jpg' || substr($test->include, -3)=='gif')
             
                 <img src="{{ asset('docs/materials/'.$test->include) }}" class="minimized" alt="клик для увеличения" />
                 @else
                 <br>
-                <a class="typejourn" href={{ asset('docs/material/'.$objs->include)}}>Перейти</a>
-                <a class="typejourn" href={{ asset('download/materials/'.$objs->include)}}>Скачать</a>
+                <a class="typejourn" href={{ asset('docs/material/'.$test->include)}}>Перейти</a>
+                <a class="typejourn" href={{ asset('download/materials/'.$test->include)}}>Скачать</a>
             @endif      
         @endif
     </div>
@@ -28,7 +28,7 @@
     <div class="question">
     <h3>Дополнительный материал №{{$num}}: 
         
-        @if(substr($objs->include, -3)=='png'|| substr($objs->include, -3)=='jpg')
+        @if(substr($objs->include, -3)=='png'|| substr($objs->include, -3)=='jpg' || substr($objs->include, -3)=='gif')
                     
             <img  class="minimized addimg" src="{{ asset('docs/materials/'.$objs->include) }}" >
         @else

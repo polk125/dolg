@@ -93,7 +93,7 @@
             @foreach ($students as $student)
                 @if($student->class_id==$class->id)
                     <tr>
-                        <td>{{$student->fio}}</td>
+                        <td><a href="{{ asset('users/'.$student->user_id)}}">{{$student->fio}}</a></td>
                         @foreach ($dates as $date) 
                         
                                 <td

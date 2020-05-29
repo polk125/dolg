@@ -13,7 +13,7 @@ class materialsController extends Controller
         $materials = DB::table('materials')->get();
         $name=NULL;
         foreach($materials as $material){
-            $name[$material->id]=DB::table('users')->where('id', '=', $material->teacher_id)->select('name')->first();
+            $name[$material->id]=DB::table('users')->where('id', '=', $material->teacher_id)->select('name','id')->first();
         }
         return view('materials', [
             'lessons' => $lessons,
@@ -31,7 +31,7 @@ class materialsController extends Controller
         }
         $name=NULL;
         foreach($materials as $material){
-            $name[$material->id]=DB::table('users')->where('id', '=', $material->teacher_id)->select('name')->first();
+            $name[$material->id]=DB::table('users')->where('id', '=', $material->teacher_id)->select('name','id')->first();
         }
         return view('materials', [
             'lessons' => $lessons,
@@ -42,7 +42,7 @@ class materialsController extends Controller
     }
     public function material($id){
         $materials = DB::table('materials')->where('id', '=', $id)->first();
-        $who = DB::table('users')->where('id','=',$materials->teacher_id)->select('name')->first();
+        $who = DB::table('users')->where('id','=',$materials->teacher_id)->select('name','id')->first();
         $lesson = DB::table('lessons')->where('id','=',$materials->lesson_id)->first();
         $includes = DB::table('includesmaterials')->where('material_id', '=', $materials->id)->get();
         
@@ -64,7 +64,7 @@ class materialsController extends Controller
 
     public function editMaterial($id){
         $materials = DB::table('materials')->where('id', '=', $id)->first();
-        $who = DB::table('users')->where('id','=',$materials->teacher_id)->select('name')->first();
+        $who = DB::table('users')->where('id','=',$materials->teacher_id)->select('name','id')->first();
         $lessons = DB::table('lessons')->get();
         $includes = DB::table('includesmaterials')->where('material_id', '=', $materials->id)->get();
         return view('editmaterial',[

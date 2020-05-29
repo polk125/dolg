@@ -131,11 +131,13 @@ class AjaxController extends Controller
         $matreials = DB::table('materials')
                 ->where('lesson_id', '=', $request->params['obj'])
                 ->get();
+            $name=NULL;
         foreach($tests as $test):
             $name[$test->id] = DB::table('users')
                 ->where('id', '=', $test->teacherid)
                 ->first();
         endforeach;
+            $names = NULL;
         foreach($matreials as $matreial):
             $names[$matreial->id] = DB::table('users')
                 ->where('id', '=', $test->teacherid)

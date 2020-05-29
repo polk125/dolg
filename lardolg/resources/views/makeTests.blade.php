@@ -14,12 +14,19 @@
     <input type="text" name="theme" id="login" required><br>
     <label for="number">Количество вопросов*</label>
     <input type="number" min="1" value="1" name="number" id="login" required><br>
+
+    
     <label for="obj" >Предмет*</label>
     <select name="obj" required>
     @foreach($objs as $obj)
         <option value="{{$obj->id}}">{{$obj->name}}</option>
     @endforeach			
     </select><br>
+    <p>Время на выполнение:</p>
+    <label for="hours" >Часов*</label>
+    <input type="number" min="0" max="24" value="0" name="hours" id="hours" required><br>
+    <label for="minutes" >Минут*</label>
+    <input type="number" min="0" max="59" value="00" name="minutes" id="minutes" required><br>
     <label for="img"0>Загружаемые файлы</label> 
     <input class="load" type="file" name="test_load" id="question_img"><br>
     <p>* - обязательные поля</p>
@@ -36,15 +43,17 @@
             {{csrf_field()}}
         <div id="add_field_area" class="add_field_area">
         <input type="hidden" name="test_name" value="{{$request->name}}"/>
-        <input type="hidden" name="test_theme" value="{{$request->theme}}'"/>
+        <input type="hidden" name="test_theme" value="{{$request->theme}}"/>
         <input type="hidden" name="quest_type"  value="{{$request->obj}}"/>
         <input type="hidden" name="quest_load"  value="{{$load}}"/>
+        <input type="hidden" name="test_hours"  value="{{$request->hours}}"/>
+        <input type="hidden" name="test_minutes"  value="{{$request->minutes}}"/>
         @for($question=1; $question<=$request->number; $question++)
             @if($question==1)
     
                 <div id="add1" class="add">
                         <label> Вопрос №1</label><br>
-                        <textarea  type="text"name="question1" id="val" onblur="writeFieldsVlues();"></textarea><br>
+                        <textarea  type="text"name="question1" id="val"></textarea><br>
                         <label for="img"0>Загружаемые файлы для вопроса</label> 
                         <input class="load" type="file" name="question<?=$question?>_img" id="question<?=$question?>_img">
                   
@@ -53,7 +62,7 @@
             
         <div id="add<?=$question?>" class="add"><hr>
                         <label> Вопрос №<?=$question?></label><br>
-                        <textarea type="text" name="question<?=$question?>" id="val" onblur="writeFieldsVlues();"  value=""></textarea><br>
+                        <textarea type="text" name="question<?=$question?>" id="val"  value=""></textarea><br>
                         <div class="deletebutton" onclick="deleteField(<?=$question?>);"></div>
                         <label for="img"0>Загружаемые файлы для вопроса</label> 
                         <input class="load" type="file" name="question<?=$question?>_img" id="question<?=$question?>_img">

@@ -172,7 +172,8 @@ document.addEventListener("DOMContentLoaded", function() {
 					ADMIN.contentDiv.innerHTML = data;
                 },
                 error: function (msg) {
-                alert('msg');
+				alert('msg');
+				console.log(msg);
                 }
 			});
 			

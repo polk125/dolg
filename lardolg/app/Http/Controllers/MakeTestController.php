@@ -49,7 +49,9 @@ class MakeTestController extends Controller
             'lessonid' => $request->quest_type,
             'include' => $request->quest_load,
             'theme' => $request->test_theme, 
-            'date' => Carbon::now() 
+            'date' => Carbon::now(),
+            'hours'=>$request->test_hours,
+            'minutes'=>$request->test_minutes
             ]
         );
         foreach($stuck as  $kluch =>$array):

@@ -23,10 +23,10 @@
     @foreach($passes as $pass)
     <tbody>
     <tr>
-    <td>{{$teachers[$pass->id]->name}}</td>
+    <td><a href="{{ asset('users/'.$teachers[$pass->id]->id)}}">{{$teachers[$pass->id]->name}}</a></td>
     <td>{{$lessons[$pass->id]->name}}</td>
     <td>
-        {{-- {{$pass->include}} --}}
+        <a href="{{ asset('start/'.$pass->id)}}">Перейти</a>
     </td>
     <td>
         <a href="{{ asset('materials/'.$pass->material_id)}}">Перейти</a>
@@ -63,11 +63,11 @@
     @foreach($passes as $pass)
     <tbody>
     <tr>
-    <td>{{$teachers[$pass->id]->name}}</td>
-    <td>{{$names[$pass->id]->fio}}</td>
+    <td><a href="{{ asset('users/'.$teachers[$pass->id]->id)}}">{{$teachers[$pass->id]->name}}</a></td>
+    <td><a href="{{ asset('users/'.$names[$pass->id]->user_id)}}">{{$names[$pass->id]->fio}}</a></td>
     <td>{{$lessons[$pass->id]->name}}</td>
     <td>
-        {{-- {{$pass->include}} --}}
+        <a href="{{ asset('start/'.$pass->id)}}">Перейти</a>
     </td>
     <td>
         <a href="{{ asset('materials/'.$pass->material_id)}}">Перейти</a>
@@ -105,11 +105,16 @@
         
         <tbody>
         <tr id="{{$pass->id}}">
-        <td>{{$names[$pass->id]->fio}}</td>
+        <td><a href="{{ asset('users/'.$names[$pass->id]->user_id)}}">{{$names[$pass->id]->fio}}</a></td>
         <td>{{$classes[$pass->id]->number}}{{$classes[$pass->id]->type}}</td>
         <td>{{$lessons[$pass->id]->name}}</td>
         <td>
-            {{-- {{$pass->include}} --}}
+            @if($pass->tire == 2)
+            @elseif($pass->tire == 0)
+            <a href="{{ asset('tests/'.$pass->test_id)}}">Перейти</a>
+            @else
+            <a href="{{ asset('start/'.$pass->id)}}">Перейти</a>
+            @endif
         </td>
         <td>
             <a href="{{ asset('materials/'.$pass->material_id)}}">Перейти</a>

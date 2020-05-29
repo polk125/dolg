@@ -132,6 +132,9 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+         'current_password' => [
+            'current_password_match' => 'Current password is incorrect.',
+        ],
     ],
 
     /*

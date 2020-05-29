@@ -14,7 +14,7 @@ class TestsController extends Controller
         
         $name=NULL;
         foreach($tests as $test){
-            $name[$test->id]=DB::table('users')->where('id', '=', $test->teacherid)->select('name')->first();
+            $name[$test->id]=DB::table('users')->where('id', '=', $test->teacherid)->select('name','id')->first();
         }
         return view('tests', [
             'lessons' => $lessons,
@@ -24,9 +24,10 @@ class TestsController extends Controller
     }
     public function test($id){
         $test = DB::table('tests')->where('id', '=', $id)->first();
-        $who = DB::table('users')->where('id','=',$test->teacherid)->select('name')->first();
+        $who = DB::table('users')->where('id','=',$test->teacherid)->select('name', 'id')->first();
         $lesson = DB::table('lessons')->where('id','=',$test->lessonid)->select('name')->first();
         $questions = DB::table('questions')->where('testid', '=', $test->id)->get();
+        
         foreach($questions as $question):
             $answer[$question->id] =  DB::table('answers')->where('questionid', '=', $question->id)->get(); 
             
@@ -48,7 +49,7 @@ class TestsController extends Controller
         }
         $name=NULL;
         foreach($tests as $test){
-            $name[$test->id]=DB::table('users')->where('id', '=', $test->teacherid)->select('name')->first();
+            $name[$test->id]=DB::table('users')->where('id', '=', $test->teacherid)->select('name', 'id')->first();
         }
         return view('tests', [
             'lessons' => $lessons,
@@ -59,7 +60,7 @@ class TestsController extends Controller
     }
     public function editTest($id){
         $test = DB::table('tests')->where('id', '=', $id)->first();
-        $who = DB::table('users')->where('id','=',$test->teacherid)->select('name')->first();
+        $who = DB::table('users')->where('id','=',$test->teacherid)->select('name','id')->first();
         $lessons = DB::table('lessons')->get();
         $questions = DB::table('questions')->where('testid', '=', $test->id)->get();
         foreach($questions as $question):

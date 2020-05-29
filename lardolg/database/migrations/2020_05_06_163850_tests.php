@@ -20,6 +20,8 @@ class Tests extends Migration
             $table->tinyInteger('lesson_id');
             $table->text('include')->default();
             $table->text('theme');
+            $table->integer('hours')->default(0);
+            $table->integer('minutes')->default(0);
         });
     }
 

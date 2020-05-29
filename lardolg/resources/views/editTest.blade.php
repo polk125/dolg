@@ -50,7 +50,7 @@
             <button value="{{$test->id}}" class="admin-btn edit-img-test">Сохранить</button> 
             <button value="{{$test->id}}" class="admin-btn delete-img-test">Удалить файл</button><br>  <br>      
         
-        <p>Автор: {{$who->name}}</p>
+        <p>Автор: <a href="{{ asset('users/'.$who->id)}}">{{$who->name}}</a></p>
     </div>
     <?php $num = 0?>
 @foreach($question as $objs)

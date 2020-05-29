@@ -67,10 +67,16 @@ Route::group(['middleware' => 'isAdmin'], function () {
         Route::post('test/updateimg', 'AjaxController@testupdateimg');
         Route::post('test/updateanswerimg', 'AjaxController@testupdateanswerimg');
         Route::get('ajaxEditMaterial/delete/{id}', 'editMaterialController@delete');
-        Route::get('docs/{fileId}', 'TestsController@loock');
-        Route::get('download/{fileId}', 'TestsController@download');
+        
     });
-    
+    Route::get('docs/{fileId}', 'TestsController@loock');
+    Route::get('download/{fileId}', 'TestsController@download');
+    Route::get('complite/{test}', 'compliteController@test');
+    Route::post('test/addanswer', 'compliteController@addanswer');
+    Route::post('test/deleteanswer', 'compliteController@deleteanswer');
+    Route::post('test/endtest', 'compliteController@endtest');
+    Route::post('test/starttest', 'compliteController@starttest');
+    Route::get('start/{test}', 'compliteController@start');
     Route::get('docs/material/{fileId}', 'materialsController@loock');
     Route::get('materials', 'materialsController@index');
     Route::get('download/materials/{fileId}', 'materialsController@download');
@@ -82,5 +88,17 @@ Route::group(['middleware' => 'isAdmin'], function () {
     Route::delete('classes/delete/{task}', 'ClassesController@delete');
     Route::get('alerts', 'AlertController@index');
     Route::get('users', 'pagination@users');
+    Route::post('about/add', 'HomeController@add');
+    Route::post('about/phone', 'HomeController@phone');
+    Route::post('about/email', 'HomeController@email');
+    Route::post('about/addhref', 'HomeController@addhref');
+    Route::post('about/adddelete', 'HomeController@adddelete');
+    Route::get('users/{id}', 'userController@index');
+    Route::post('reset', 'Auth\ResetPasswordController@postUpdatePassword');
+    
+    
+    Route::get('adminpanel', 'adminController@index');
+    Route::get('adminpanel/add', 'adminController@addusers');
+    Route::post('adminpanel/add/uploadexcel', 'adminController@upload');
 });
 

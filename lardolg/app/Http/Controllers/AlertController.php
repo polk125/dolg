@@ -76,7 +76,7 @@ class AlertController extends Controller
                         ->where([['students.parenth_id', '=', Auth::user()->id],['pass.value','=', 'н']])
                         ->orWhere([['students.parenth_id', '=', Auth::user()->id],['pass.value','=','Н']]);
                     })
-                ->select('pass.id', 'student_id', 'teacher_id', 'lesson_id', 'date', 'why')
+                ->select('pass.id', 'student_id', 'teacher_id', 'lesson_id', 'date', 'why','material_id')
                 ->get();
                 $names=NULL;
             $classes=NULL;
@@ -104,6 +104,8 @@ class AlertController extends Controller
                 'classes' => $classes,
                 'lessons' => $lessons
             ]);
+        }else{
+            return redirect('home');
         }
     }
 }

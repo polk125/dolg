@@ -11,7 +11,8 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
 	<!-- Scripts -->
-	
+	<script src="{{ asset('js/jquery.js')}}"></script>
+	<script src="{{ asset('js/navbar.js')}}"></script>
 	
     <script src="{{ asset('js/app.js') }}" defer></script>
 
@@ -23,7 +24,7 @@
 
 	<!-- Styles -->
 	<link rel="stylesheet" href="{{ asset('css/style.css')}}">
-	
+	<link rel="stylesheet" href="{{ asset('css/bootstrap.min.css')}}">
 	
 	
 </head>
@@ -64,13 +65,23 @@
 							</i> Материалы
 						</a>
 					</li>
-		</ul>
+			@if(Auth::user()->typeAdmin == 1)
+					<li>
+						<a href="{{ asset('adminpanel')}}"><i class="fas fa-cog">
+							</i> Панель администрации
+						</a>
+					</li>
+			@endif
+			</ul>
+			
+					
 		
 </aside>
 			<div class="wrapper main">
 				<header>
 					<nav class="navbar">
-						<div>
+						<div class="navbar-bars">
+							<i class="fas fa-bars hide-sidebar"></i>
 						</div>
 						<div class="navbar-user">
 							{{ Auth::user()->name }}
