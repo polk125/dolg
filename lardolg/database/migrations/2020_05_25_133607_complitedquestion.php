@@ -15,10 +15,10 @@ class Complitedquestion extends Migration
     {
         Schema::create('complitedquestion', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->textInteger('complitedpass_id');
-            $table->textInteger('question_id');
-            $table->textInteger('answer_id');
-            $table->textInteger('student_id');
+            $table->integer('complitedpass_id');
+            $table->integer('question_id');
+            $table->integer('answer_id');
+            $table->integer('student_id');
             $table->tinyInteger('correct');
         });
     }

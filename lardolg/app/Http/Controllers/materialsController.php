@@ -42,6 +42,9 @@ class materialsController extends Controller
     }
     public function material($id){
         $materials = DB::table('materials')->where('id', '=', $id)->first();
+        if(!isset($materials)){
+            return abort(404);
+        }
         $who = DB::table('users')->where('id','=',$materials->teacher_id)->select('name','id')->first();
         $lesson = DB::table('lessons')->where('id','=',$materials->lesson_id)->first();
         $includes = DB::table('includesmaterials')->where('material_id', '=', $materials->id)->get();
@@ -54,11 +57,11 @@ class materialsController extends Controller
         ]);
     }
     public function loock($fileId){
-        $pathToFile=public_path('/docs/materials/'.$fileId);
+        $pathToFile=public_path('docs/materials/'.$fileId);
         return response()->file($pathToFile);      
     }
     public function download($fileId){
-        $pathToFile=public_path('/docs/materials/'.$fileId);
+        $pathToFile=public_path('docs/materials/'.$fileId);
         return response()->download($pathToFile);      
     }
 

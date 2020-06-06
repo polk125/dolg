@@ -15,7 +15,7 @@ class MaterialsIncludes extends Migration
     {
         Schema::create('includesmaterials', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->textInteger('material_id');
+            $table->integer('material_id');
             $table->text('include')->default(NULL);
         });
     }

@@ -10,6 +10,10 @@ class compliteController extends Controller
 {
     public function test($id){
         $pass = DB::table('pass')->where('id', '=', $id)->select( 'id','test_id','started','tire')->first();
+        
+        if(!isset($pass)){
+            return abort(404);
+        }
         if($pass->tire >= 1){
             return redirect('../start/'.$pass->id);
         }
@@ -17,7 +21,10 @@ class compliteController extends Controller
             return redirect('../alert');
         }
         if($pass->started !== NULL){ 
-
+            $copmlited = NULL;
+            $student = DB::table('students')->where('user_id','=',Auth::user()->id)->first();
+            $copmlited = DB::table('coplitedquestion')->where('student_id','=', $student->id)->get();
+            
             $test = DB::table('tests')->where('id', '=', $pass->test_id)->first();
             $who = DB::table('users')->where('id','=',$test->teacherid)->select('name','id')->first();
             $lesson = DB::table('lessons')->where('id','=',$test->lessonid)->select('name')->first();
@@ -32,13 +39,16 @@ class compliteController extends Controller
                 'lesson' => $lesson,
                 'question' => $questions,
                 'answers' => $answer,
-                'pass'=> $pass
+                'pass'=> $pass,
+                'complited' => $copmlited
             ]);
         }else{
         $test = DB::table('tests')->where('id', '=', $pass->test_id)->first();
         $who = DB::table('users')->where('id','=',$test->teacherid)->select('name','id')->first();
         $lesson = DB::table('lessons')->where('id','=',$test->lessonid)->select('name')->first();
         $questions = DB::table('questions')->where('testid', '=', $test->id)->get();
+       
+        
         foreach($questions as $question):
             $answer[$question->id] =  DB::table('answers')->where('questionid', '=', $question->id)->get(); 
             
@@ -55,6 +65,10 @@ class compliteController extends Controller
     }
     public function start($id){
         $pass = DB::table('pass')->where('id', '=', $id)->select( 'id','test_id','tire')->first();
+        
+        if(!isset($pass)){
+            return abort(404);
+        }
         if($pass->tire == 1){            
             $test = DB::table('tests')->where('id', '=', $pass->test_id)->first();
             $who = DB::table('users')->where('id','=',$test->teacherid)->select('name','id')->first();
@@ -102,23 +116,25 @@ class compliteController extends Controller
     
     }
     public function addanswer(Request $request){
-        $answer = DB::table('answers')->where('id', '=', $request->data['id'])->first();
-        $pass = DB::table('pass')->where('id', '=', $request->data['pass'])->first();
-        $question = DB::table('questions')->where('id', '=', $answer->questionid)->first();
-        $add = DB::table('coplitedquestion')->insert(
-            ['complitedpass_id' => $request->data['pass'],
-            'question_id' => $question->id,
-            'answer_id' => $request->data['id'],
-            'student_id' => $pass->student_id,
-            'correct' => $answer->correct
-            ]
-        );
+        $check = DB::table('coplitedquestion')->where([['complitedpass_id','=',$request->data['pass']],['answer_id','=',$request->data['id']]])->first();
+        if(!isset($check)){
+            $answer = DB::table('answers')->where('id', '=', $request->data['id'])->first();
+            $pass = DB::table('pass')->where('id', '=', $request->data['pass'])->first();
+            $question = DB::table('questions')->where('id', '=', $answer->questionid)->first();
+            $add = DB::table('coplitedquestion')->insert(
+                ['complitedpass_id' => $request->data['pass'],
+                'question_id' => $question->id,
+                'answer_id' => $request->data['id'],
+                'student_id' => $pass->student_id,
+                'correct' => $answer->correct
+                ]
+            );
+        }
     }
     public function deleteanswer(Request $request){
-        $delete = DB::table('coplitedquestion')->where([
-            ['complitedpass_id' => $request->data['pass']],
-            ['answer_id', '=', $request->data['id']]
-        ])->delete();
+        
+
+            $delete = DB::table('coplitedquestion')->where([['complitedpass_id', '=', $request->data['pass']],['answer_id', '=', $request->data['id']]])->delete();
     }
     public function endtest(Request $request){
         $delete = DB::table('pass')->where([

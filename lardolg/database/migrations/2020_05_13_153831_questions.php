@@ -16,9 +16,8 @@ class Questions extends Migration
         Schema::create('questions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('question');
-            $table->tinyInteger('quality')->default(3);
             $table->text('include')->default(NULL);
-            $table->tinyInteger('testid');
+            $table->integer('testid');
         });
     }
 

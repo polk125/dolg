@@ -26,6 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $includes = NULL;
         $includes=DB::table('userconnect')->where('userid', '=', Auth::user()->id)->get();
         if(Auth::user()->typeAdmin == 2){
             $teacherclasses=DB::table('classes')->where('teacher_id', '=', Auth::user()->id)->orderBy('number')->get();
@@ -48,7 +49,7 @@ class HomeController extends Controller
                     'includes' => $includes
                 ]);
         }elseif(Auth::user()->typeAdmin == 3){
-                $student=DB::table('students')->where('user_id', '=', $id)->first();
+                $student=DB::table('students')->where('user_id', '=', Auth::user()->id)->first();
                 $parent = DB::table('users')->where('id', '=', $student->parenth_id)->first();
                 return view('home',[
                     'parent' => $parent,

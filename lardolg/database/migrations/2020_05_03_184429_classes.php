@@ -15,10 +15,9 @@ class Classes extends Migration
     {
         Schema::create('classes', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->text('number');
+            $table->integer('number');
             $table->text('type');
-            $table->tinyInteger('teacher_id');
-            $table->timestamps();
+            $table->integer('teacher_id')->default(NULL);
         });
     }
 

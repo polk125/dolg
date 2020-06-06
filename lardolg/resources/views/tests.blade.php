@@ -9,6 +9,11 @@
 @endif
 <h1 class="h1-high">Тесты</h1>
 
+
+
+@if(count($tests)==0)
+    <h1 class="h1-high allert">Тесты отсутвуют</h1>
+@else
 <form method="post" class="journ_month" id="MyForm">
     Предмет
     {{csrf_field()}}
@@ -23,17 +28,12 @@
 
     </select>
 </form>
-
-@if($names==NULL)
-    <h1 class="h1-high">Тесты отсутвуют</h1>
-@endif
-
 @foreach($tests as $test)
 <div class="test" ><a class="header-href" href="tests/{{$test->id}}">{{$test->name}}</a>
     
     <p>Тема - {{$test->theme}}</p>
 
-    <p>Автор: {{$names[$test->id]->name}}</p>
+    <p>Автор: @if(isset($names[$test->id]->name)) {{$names[$test->id]->name}} @else Неизвестный автор @endif</p>
     @foreach($lessons as $lesson)
         @if($lesson->id == $test->lessonid)
             <p>Предмет - {{$lesson->name}}</p><br>
@@ -46,5 +46,5 @@
     <br><div class="nav-test"><a class="look" href="editTest/{{$test->id}}">Редактировать</a><a class="look" href="tests/{{$test->id}}">Просмотр</a></div>
 </div>
 @endforeach
-
+@endif
 @endsection

@@ -17,7 +17,7 @@ class ForTeachers
     public function handle($request, Closure $next)
     {
         if(Auth::user()->typeAdmin == 3 || Auth::user()->typeAdmin == 4){
-            return redirect('/');
+            return abort(404);
         }
         return $next($request);
     }

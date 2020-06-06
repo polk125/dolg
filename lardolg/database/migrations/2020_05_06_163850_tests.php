@@ -16,7 +16,7 @@ class Tests extends Migration
         Schema::create('tests', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('name');
-            $table->tinyInteger('teacher_id');
+            $table->integer('teacher_id');
             $table->tinyInteger('lesson_id');
             $table->text('include')->default();
             $table->text('theme');

@@ -19,7 +19,12 @@ class journal extends Controller
         $classes = DB::table('classes')
                     ->where('teacher_id', '=', Auth::user()->id)
                     ->get();
-        $lessons = DB::table('lessons')->get();
+    $lessons=NULL;
+        foreach($classes as $class){
+            $lessons[$class->id] = DB::table('lessonteacher')->where('lessonteacher.class_id','=',$class->id)
+            ->join('lessons','lessons.id','=','lessonteacher.lesson_id')
+            ->get();
+        }
         $pass = DB::table('pass')->get();
         $students = DB::table('students')
                     ->join('classes', function ($join) {

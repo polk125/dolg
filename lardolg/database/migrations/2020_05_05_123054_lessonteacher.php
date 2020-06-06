@@ -15,10 +15,9 @@ class Lessonteacher extends Migration
     {
         Schema::create('lessonteacher', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->tinyInteger('lesson_id');
-            $table->tinyInteger('teacher_id');
-            $table->tinyInteger('class_id');
-            $table->timestamps();
+            $table->integer('lesson_id');
+            $table->integer('teacher_id')->default(NULL);
+            $table->integer('class_id');
         });
     }
 

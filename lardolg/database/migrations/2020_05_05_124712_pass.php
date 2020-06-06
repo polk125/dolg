@@ -15,14 +15,14 @@ class Pass extends Migration
     {
         Schema::create('pass', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->tinyInteger('student_id');
-            $table->tinyInteger('teacher_id');
+            $table->integer('student_id');
+            $table->integer('teacher_id');
             $table->tinyInteger('lesson_id');
             $table->text('value');
             $table->text('why')->default('');
             $table->tinyInteger('tire');
-            $table->tinyInteger('test_id')->default(NULL);
-            $table->tinyInteger('material_id')->default(NULL);
+            $table->integer('test_id')->default(NULL);
+            $table->integer('material_id')->default(NULL);
             $table->date('date');
         });
     }

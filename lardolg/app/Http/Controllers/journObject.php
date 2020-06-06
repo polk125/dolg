@@ -12,6 +12,7 @@ class journObject extends Controller
         $lessons=DB::table('lessonteacher')
         ->where('teacher_id', '=', $user)
         ->get();
+        
         foreach($lessons as $lesson){
             $names[$lesson->id] = DB::table('lessons')
                                     ->where('id', '=', $lesson->lesson_id)

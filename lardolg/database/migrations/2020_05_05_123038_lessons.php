@@ -16,7 +16,8 @@ class Lessons extends Migration
         Schema::create('lessons', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('name');
-            $table->timestamps();
+            $table->integer('start')->default(NULL);
+            $table->integer('end')->default(NULL);
         });
     }
 

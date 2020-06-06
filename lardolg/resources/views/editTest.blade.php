@@ -50,7 +50,7 @@
             <button value="{{$test->id}}" class="admin-btn edit-img-test">Сохранить</button> 
             <button value="{{$test->id}}" class="admin-btn delete-img-test">Удалить файл</button><br>  <br>      
         
-        <p>Автор: <a href="{{ asset('users/'.$who->id)}}">{{$who->name}}</a></p>
+        <p>Автор: @if(isset($who->name)) <a href="{{ asset('users/'.$who->id)}}">{{$who->name}}</a> @else Неизвестный автор @endif</p>
     </div>
     <?php $num = 0?>
 @foreach($question as $objs)
@@ -101,8 +101,8 @@
             <div class="addansimg{{$answer->id}}">
                 <br>
                 <h1>{{explode(".", $answer->include)[0]}}</h1>
-                <a class="typejourn" href="{{ asset('docs/test/'.$answer->include)}}">Перейти</a>
-                <a class="typejourn" href="{{ asset('download/test/'.$answer->include)}}">Скачать</a>
+                <a class="typejourn" href="{{ asset('docs/'.$answer->include)}}">Перейти</a>
+                <a class="typejourn" href="{{ asset('download/'.$answer->include)}}">Скачать</a>
             </div>
             @endif
         @else
@@ -128,8 +128,8 @@
                 <div class="addansimg{{$answer->id}}">
                     <br>
                     <h1>{{explode(".", $answer->include)[0]}}</h1>
-                    <a class="typejourn" href="{{ asset('docs/test/'.$answer->include)}}">Перейти</a>
-                    <a class="typejourn" href="{{ asset('download/test/'.$answer->include)}}">Скачать</a>
+                    <a class="typejourn" href="{{ asset('docs/'.$answer->include)}}">Перейти</a>
+                    <a class="typejourn" href="{{ asset('download/'.$answer->include)}}">Скачать</a>
                 </div>
                 @endif
             @else

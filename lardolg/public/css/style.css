@@ -17,6 +17,9 @@ main{
 	min-height: 800px;
 	padding-bottom: 20px;
 }
+main .allert{
+	margin-top: 20%;
+}
 /* Боковая панель */
 .sidebar {
     background-color: #628ecb;

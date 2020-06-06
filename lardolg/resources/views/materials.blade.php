@@ -9,6 +9,11 @@
 @endif
 <h1 class="h1-high">Материалы</h1>
 
+
+
+@if(count($materials)==0)
+    <h1 class="h1-high allert">Материалы отсутвуют</h1>
+@else
 <form method="post" class="journ_month" id="MyForm">
     Предмет
     {{csrf_field()}}
@@ -23,11 +28,6 @@
 
     </select>
 </form>
-
-@if($names==NULL)
-    <h1 class="h1-high">Материалы отсутвуют</h1>
-@endif
-
 @foreach($materials as $material)
 <div class="test" ><a class="header-href" href="materials/{{$material->id}}">{{$material->name}}</a>
     
@@ -47,5 +47,5 @@
         @if(Auth::user()->typeAdmin!=4 || Auth::user()->typeAdmin!=3)<a class="look" href="editmaterial/{{$material->id}}">Редактировать</a>@endif<a class="look" href="materials/{{$material->id}}">Просмотр</a></div>
 </div>
 @endforeach
-
+@endif
 @endsection

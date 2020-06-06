@@ -8,7 +8,7 @@
 <a class="typejourn" href=journal>Таблица по классам</a>
     
 <a class="typejourn" href=journal_object>Таблица по предметам</a>
-<h1 class="h1-high">У вас нет предметов, которовые вы ведете</h1>
+<h1 class="h1-high allert">У вас нет предметов, которовые вы ведете</h1>
 @else
 <a class="typejourn" href=journal>Таблица по классам</a>
     
@@ -21,6 +21,7 @@
         Месяц 
         {{csrf_field()}}
         <select name="journ_month" onchange="document.getElementById('MyForm').submit()">
+        <option>Выбрать месяц</option>
         <option <?php if(isset($month)){if($month==='9'){echo"selected";}}elseif(date("m")==9){echo 'selected';}?> value="9">Сентябрь</option>
         <option <?php if(isset($month)){if($month==='10'){echo"selected";}}elseif(date("m")==10){echo 'selected';}?> value="10">Октябрь</option>
         <option <?php if(isset($month)){if($month==='11'){echo"selected";}}elseif(date("m")==11){echo 'selected';}?> value="11">Ноябрь</option>
@@ -100,13 +101,13 @@
             @foreach($students[$lesson->id] as $student)
 
                 <tr>
-                    <td>{{$student->fio}}</td>  
+                    <td><a href="{{ asset('users/'.$student->user_id)}}">{{$student->fio}}</a></td>  
                     @foreach ($dates as $date)
-                        <td
+                        <td 
                         data-user="{{$student->id}}"
                         data-date="{{$date->format("Y-m-d")}}"
                         data-obj="{{$lesson->id}}"
-                        class="editable <?php if(findValue($date->format("Y-m-d"), $student->id, $pass, $lesson->id)=='н' || findValue($date->format("Y-m-d"), $student->id, $pass, $lesson->id)=='2') echo 'red'; ?>">{{findValue($date->format("Y-m-d"), $student->id, $pass, $lesson->id)}}</td>
+                        class="editable <?php if(findValue($date->format("Y-m-d"), $student->id, $pass, $lesson->lesson_id)=='н' || findValue($date->format("Y-m-d"), $student->id, $pass, $lesson->lesson_id)=='2') echo 'red'; ?>">{{findValue($date->format("Y-m-d"), $student->id, $pass, $lesson->lesson_id)}}</td>
                     @endforeach
                 </tr>
             @endforeach

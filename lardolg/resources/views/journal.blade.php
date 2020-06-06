@@ -13,11 +13,17 @@
     <a class="typejourn" href=journal_object>Таблица по предметам</a>
 @endif
 
-<h1 class="h1-high">Таблица по классам </h1>
+
+@if(count($classes)==0) 
+<h1 class="h1-high allert">У вас нет классов, которые вы ведете</h1>
+
+@else
+<h1 class="h1-high">Таблица по классам</h1>
     <form method="post" class="journ_month" id="MyForm">
         Месяц 
         {{csrf_field()}}
         <select name="journ_month" onchange="document.getElementById('MyForm').submit()">
+        <option>Выбрать месяц</option>
         <option <?php if(isset($month)){if($month==='9'){echo"selected";}}elseif(date("m")==9){echo 'selected';}?> value="9">Сентябрь</option>
         <option <?php if(isset($month)){if($month==='10'){echo"selected";}}elseif(date("m")==10){echo 'selected';}?> value="10">Октябрь</option>
         <option <?php if(isset($month)){if($month==='11'){echo"selected";}}elseif(date("m")==11){echo 'selected';}?> value="11">Ноябрь</option>
@@ -29,7 +35,7 @@
         <option <?php if(isset($month)){if($month==='5'){echo"selected";}}elseif(date("m")==5){echo 'selected';}?> value="5">Май</option>
         </select>
         </form>
-
+        @endif
 <?php 
     function generateDates($start, $end, $weekDays) {
         $interval = DateInterval::createFromDateString('1 day');
@@ -70,10 +76,11 @@
         return ' ';
     }
     ?>
+
     @foreach ($classes as $class)
     <br>
     <h2>Классы: {{$class->number}}{{$class->type}}</h2>
-        @foreach ($lessons as $lesson) 
+        @foreach ($lessons[$class->id] as $lesson) 
 
 
         <div class="contain">

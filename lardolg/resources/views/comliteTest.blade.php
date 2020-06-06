@@ -1,5 +1,16 @@
 @extends('layouts/navbar')
 @section('content')
+<?php 
+function findValue($date, $answer, $pass) {
+        
+        foreach($date as $d) {
+            if( $d->complitedpass_id != $pass ) continue;
+            if( $d->answer_id != $answer ) continue;
+            return 1;
+        }
+        return ' ';
+    }
+?>
 <div class="timer" data-hours="{{$test->hours}}" data-minutes="{{$test->minutes}}" @if($pass->started !== NULL)data-started="{{$pass->started}}"@endif></div>
 <link rel="stylesheet" href="{{ asset('css/starttest.css')}}">
 <link rel="stylesheet" href="{{ asset('css/journ.css')}}">
@@ -8,7 +19,7 @@
 <div class="test-render">
     <div class="example">
         <h1>Название теста: {{$test->name}}</h1>
-        <p><span>Автор:</span> <a href="{{ asset('users/'.$who->id)}}">{{$who->name}}</a></p>
+        <p><span>Автор:</span> @if(isset($who->name)) <a href="{{ asset('users/'.$who->id)}}">{{$who->name}}</a> @else Неизвестный автор @endif</p>
         <p><span>Тема:</span> {{$test->theme}}</p>
         <p><span>Предмет:</span> {{$lesson->name}}</p>
         <div class="demo" id="demo"></div>
@@ -49,7 +60,7 @@
                 
             <div class="answer ">
                 <label class="container">{{$numb}}. {{$answer->text}}
-                    <input class="answer_type" type="checkbox" data-type="{{$answer->id}}" data-test="{{$pass->id}}">
+                    <input class="answer_type" @if(isset($complited))@if(findValue( $complited,$answer->id,$pass->id)==1) checked @endif @endif type="checkbox" data-type="{{$answer->id}}" data-test="{{$pass->id}}">
                     <span class="checkmark"></span>
                 </label>
             

@@ -7,7 +7,7 @@
 <div class="test-render">
     <div class="example">
         <h1>Название теста: {{$test->name}}</h1>
-        <p><span>Автор:</span> <a href="{{ asset('users/'.$who->id)}}">{{$who->name}}</a></p>
+        <p><span>Автор:</span> @if(isset($who->name)) <a href="{{ asset('users/'.$who->id)}}">{{$who->name}}</a> @else Неизвестный автор @endif</p>
         <p><span>Тема:</span> {{$test->theme}}</p>
         <p><span>Предмет:</span> {{$lesson->name}}</p>
         <div class="demo" id="demo"></div>

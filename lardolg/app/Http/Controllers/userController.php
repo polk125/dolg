@@ -32,7 +32,7 @@ class userController extends Controller
             ]); 
         }
         if($user->typeAdmin == 4){
-            if(Auth::user()->typeAdmin == 2){
+            if(Auth::user()->typeAdmin == 2 || Auth::user()->typeAdmin == 1){
             $children=DB::table('students')->where('parenth_id', '=', $user->id)
             ->join('classes', 'students.class_id','=','classes.id')
             ->get();
@@ -46,7 +46,7 @@ class userController extends Controller
         } 
         }
         if($user->typeAdmin == 3){
-            if(Auth::user()->typeAdmin == 2 || Auth::user()->typeAdmin == 4){
+            if(Auth::user()->typeAdmin == 2 || Auth::user()->typeAdmin == 1 || Auth::user()->typeAdmin == 4){
             $student=DB::table('students')->where('user_id', '=', $id)->first();
             $parent = DB::table('users')->where('id', '=', $student->parenth_id)->first();
             $pass=DB::table('pass')->where('pass.student_id', '=', $student->id)

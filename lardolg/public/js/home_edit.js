@@ -111,7 +111,7 @@ document.addEventListener("DOMContentLoaded", function() {
         var temp = this.value;
         if(phonevalue == temp || temp.length<11){
             if(temp.length<11){
-                document.querySelector('.phone-feedback').innerHTML="Введите полный номер";
+                document.querySelector('.phone-feedback').innerHTML =   "Введите полный номер";
             }
             return false
         }

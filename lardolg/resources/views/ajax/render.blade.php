@@ -7,7 +7,7 @@
     </option>
     @if(isset($tests))
     @foreach ($tests as $test)
-        <option value="{{$test->id}}">Тест: {{$test->name}} Автор: {{$name[$test->id]->name}}</option>
+        <option value="{{$test->id}}">Тест: {{$test->name}} Автор: @if(isset($name[$test->id]->name)){{$name[$test->id]->name}}@else Автор неизвестен @endif</option>
     @endforeach
 @endif
 <option value="href">
@@ -21,7 +21,7 @@
     </option>
     @if(isset($materials))
     @foreach ($materials as $material)
-        <option value="{{$material->id}}">Название: {{$material->name}} Автор: {{$names[$material->id]->name}}</option>
+        <option value="{{$material->id}}">Название: {{$material->name}} Автор: @if(isset($names[$material->id]->name)){{$names[$material->id]->name}}@else Автор неизвестен @endif</option>
     @endforeach
 @endif
 <option value="href">

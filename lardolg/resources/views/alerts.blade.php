@@ -56,7 +56,6 @@
     <th>Дата</th>
     <th>Причина</th>
     <th>Состояние</th>
-    <th></th>
 </tr>
 </thead>
 @if(count($passes) > 0)

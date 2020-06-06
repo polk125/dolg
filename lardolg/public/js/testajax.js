@@ -61,8 +61,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function (data) {
+					console.log(data);
                 },
                 error: function (msg) {
+				console.log(msg);
                 alert('msg');
                 }
                 });

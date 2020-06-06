@@ -24,7 +24,6 @@
 
 	<!-- Styles -->
 	<link rel="stylesheet" href="{{ asset('css/style.css')}}">
-	<link rel="stylesheet" href="{{ asset('css/bootstrap.min.css')}}">
 	
 	
 </head>
@@ -38,7 +37,7 @@
 	<div class="sidebar-node">
 		<p class="text-muted sidebar-header"></p>
 		<ul class="sidebar-list">
-			@if (Auth::user()->typeAdmin!=4 && Auth::user()->typeAdmin!=3)		
+			@if (Auth::user()->typeAdmin==2)		
 					<li>
 						<a href="{{ asset('journal')}}"><i class="fas fa-columns">
 							</i> Журнал
@@ -65,6 +64,13 @@
 							</i> Материалы
 						</a>
 					</li>
+				
+					<li>
+						<a href="{{ asset('additional')}}"><i class="fas fa-calendar">
+							</i> Дополнительные занятия
+						</a>
+					</li>
+		
 			@if(Auth::user()->typeAdmin == 1)
 					<li>
 						<a href="{{ asset('adminpanel')}}"><i class="fas fa-cog">

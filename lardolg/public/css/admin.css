@@ -1,0 +1,80 @@
+.addbutton {
+	text-align: center;
+	vertical-align:middle;
+	font-size: 13px;
+	width: 283px;
+	border: 1px solid #70A9FD;
+	-webkit-border-radius: 7px;
+	-moz-border-radius: 7px;
+	border-radius: 7px;
+	cursor: pointer;
+	margin: 10px auto;
+	color: #326DC5;
+	padding: 4px;
+	background-color:#BED6FF;
+}
+main{
+	padding: 50px 100px;
+	overflow: auto;
+}
+.card{
+    margin-top: 50px;
+}
+.class-input input{
+	display: inline-block;
+	width: 20%;
+}
+.head-navigation{
+	padding-bottom: 20px;
+}
+
+#new-password{
+	visibility: hidden;
+	background-color: #f9f9f9;
+	display: inline-block;
+	padding: .375rem;
+	padding-left: 15px;
+	margin: 15px;
+	border: 1px solid #e9e9e9;
+	border-radius: 10px;
+}
+select{
+	display: inline-block;
+	border-radius: 10px;
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid rgb(180, 180, 180);
+	padding: 5px;
+	outline: none;
+	-webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+tr{
+	transition: .3s all;
+}
+.close, .closelesson{
+	 
+    font-family: inherit;
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    height: 100%;
+        float: none;
+        font-size: 1.5rem;
+        font-weight: 700;
+        line-height: 1;
+        color: #000;
+        text-shadow: 0 1px 0 #fff;
+        opacity: .5;
+        cursor: pointer;
+
+}
+.close:hover, .closelesson:hover {
+    color: #000;
+    text-decoration: none;
+    opacity: .75;
+}

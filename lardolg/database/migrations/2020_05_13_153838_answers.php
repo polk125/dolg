@@ -15,7 +15,7 @@ class Answers extends Migration
     {
         Schema::create('answers', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->textInteger('questionid');
+            $table->integer('questionid');
             $table->text('text');
             $table->text('include')->default(NULL);
             $table->tinyInteger('correct')->default(0);

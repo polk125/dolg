@@ -16,10 +16,9 @@ class Students extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('fio');
-            $table->tinyInteger('user_id');
-            $table->tinyInteger('class_id');
-            $table->tinyInteger('parenth_id');
-            $table->timestamps();
+            $table->integer('user_id');
+            $table->integer('class_id');
+            $table->integer('parenth_id')->default(NULL);
         });
     }
 

@@ -60,6 +60,9 @@ class TestsController extends Controller
     }
     public function editTest($id){
         $test = DB::table('tests')->where('id', '=', $id)->first();
+        if(!isset($test)){
+            return abort(404);
+        }
         $who = DB::table('users')->where('id','=',$test->teacherid)->select('name','id')->first();
         $lessons = DB::table('lessons')->get();
         $questions = DB::table('questions')->where('testid', '=', $test->id)->get();

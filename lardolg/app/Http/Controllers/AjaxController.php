@@ -62,7 +62,13 @@ class AjaxController extends Controller
                     'material_id'=>$request->params['material']]);
                     return($request->params);
                 
-            }else{     
+            }else{    
+                if($request->params['value'] == "н" || $request->params['value'] == "Н"){
+                    $tyre = "0";
+                    
+                }else{
+                    $tyre = "2";
+                }
                 $pass = DB::table('pass')->insert(
                     ['student_id' => $request->params['user'], 
                     'teacher_id' => $lessonteacher->teacher_id,
@@ -71,10 +77,10 @@ class AjaxController extends Controller
                     'why' => $request->params['why'],
                     'date' => $request->params['date'],
                     'test_id'=>$request->params['test'],
-                    'material_id'=>$request->params['material']           
+                    'material_id'=>$request->params['material'],
+                    'tire'=> $tyre           
                     ]
                   );
-                  return($request->params);
                   
             }
         }else{
@@ -98,25 +104,12 @@ class AjaxController extends Controller
      */
     public function delete(Request $request)
     {
-        $lessonteacher = DB::table('lessonteacher')
-        ->select('teacher_id','lesson_id')
-        ->where('id','=', $request->params['obj'])
-        ->first();
+
         if(preg_match('/^[2345Нн]+$/', $request->params['value'])){
-            $result = DB::table('pass')->where([
-                ['student_id', '=', $request->params['user']], 
-                ['teacher_id','=', $lessonteacher->teacher_id], 
-                ['lesson_id','=',$lessonteacher->lesson_id], 
-                ['date','=',$request->params['date']]
-            ])
+            $result = DB::table('pass')->where('id', '=', $request->params['id'])
             ->update(['value'=>$request->params['value'], 'tire'=>2]);            
         }else{
-            $result = DB::table('pass')->where([
-                ['student_id', '=', $request->params['user']], 
-                ['teacher_id','=', $lessonteacher->teacher_id], 
-                ['lesson_id','=',$lessonteacher->lesson_id], 
-                ['date','=',$request->params['date']]
-                ])
+            $result = DB::table('pass')->where('id', '=', $request->params['id'])
                 ->delete();
                 
         }
@@ -124,12 +117,16 @@ class AjaxController extends Controller
     }
     public function render(Request $request)
     {
+        $lessonteacher = DB::table('lessonteacher')
+        ->select('teacher_id','lesson_id')
+        ->where('id','=', $request->params['obj'])
+        ->first();
         $tests = DB::table('tests')
-                ->where('lessonid', '=', $request->params['obj'])
+                ->where('lessonid', '=', $lessonteacher->lesson_id)
                 ->get();
 
         $matreials = DB::table('materials')
-                ->where('lesson_id', '=', $request->params['obj'])
+                ->where('lesson_id', '=', $lessonteacher->lesson_id)
                 ->get();
             $name=NULL;
         foreach($tests as $test):
@@ -214,6 +211,14 @@ class AjaxController extends Controller
             return view('ajax/testaddedImg', ['load' => $load, 'id'=> $request->id]);
         }
     }
+    public function addlessons(Request $request)
+    {
+        $lessonteacher= DB::table('lessonteacher')->insertGetId(['class_id'=>$request->temp['id'],'lesson_id'=>$request->temp['value']]);
+        $teachers=DB::table('users')->where('typeAdmin','=','2')->get();
+        $lesson = DB::table('lessons')->where('id','=',$request->temp['value'])->first();
+        return view('ajax/addlessons', ['request' => $request,'lessonteacher'=>$lessonteacher,'lesson'=>$lesson,'teachers'=>$teachers]);
+    }
+    
     /**
      * Show the form for editing the specified resource.
      *

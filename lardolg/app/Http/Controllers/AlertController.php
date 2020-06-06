@@ -42,6 +42,7 @@ class AlertController extends Controller
                         ->where([['students.user_id', '=', Auth::user()->id],['pass.value','=', 'н']])
                         ->orWhere([['students.user_id', '=', Auth::user()->id],['pass.value','=','Н']]);
                     })
+                    ->select('pass.id', 'student_id', 'teacher_id', 'lesson_id', 'date', 'why','material_id')
                 ->get();
             $names=NULL;
             $classes=NULL;
@@ -54,9 +55,6 @@ class AlertController extends Controller
                 $names[$pass->id] = DB::table('students')
                                         ->where('id', '=', $pass->student_id)
                                         ->first();
-                $classes[$pass->id] = DB::table('classes')
-                                        ->where('id', '=', $pass->class_id)
-                                        ->first();
                 $lessons[$pass->id] = DB::table('lessons')
                                         ->where('id', '=', $pass->lesson_id)
                                         ->first();
@@ -66,7 +64,6 @@ class AlertController extends Controller
                 'teachers' => $teachers,
                 'passes' => $passes,
                 'names' => $names,
-                'classes' => $classes,
                 'lessons' => $lessons
             ]);
         }elseif(Auth::user()->typeAdmin==4){
